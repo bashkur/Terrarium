@@ -22,7 +22,7 @@ public class HandMovement : MonoBehaviour
         mouseY = Input.GetAxis("Mouse Y");
         mouseX = Input.GetAxis("Mouse X");
         if(Mathf.Abs(mouseX) < 10 && Mathf.Abs(mouseY) < 10)
-            transform.position = transform.position + new Vector3(mouseX * Time.deltaTime * speed , 0, mouseY * Time.deltaTime * speed);
+            transform.position = transform.position + new Vector3(mouseX * Time.deltaTime * speed , 0, mouseY * Time.deltaTime * speed); //should be negative.. moves away from mouse input?
 
 
     }
