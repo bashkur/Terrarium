@@ -5,18 +5,20 @@ using UnityEngine;
 public class Player_pull_script : MonoBehaviour
 {
 
-    public GameObject currentPlant;
+    public Plant currentPlant;
     public float speed = 50.0f;
 
     private float distanceFromPlant;
     private Vector3 trowelStartLocation;
 
     private bool SoilNeedsLoosened = true;
+
+    //makes sure player actually covers all 360 degrees of the plant even if they backtrack
     private float leftMost = 0;
     private float rightMost = 0;
     private float totalDegree = 0;
 
-    void SetPlant(GameObject plant)
+    void SetPlant(Plant plant)
     {
         currentPlant = plant;
         if (plant)
@@ -26,9 +28,8 @@ public class Player_pull_script : MonoBehaviour
         if (SoilNeedsLoosened)
         {
             //rotates by -90 degrees
-            gameObject.transform.localRotation = Quaternion.Euler(0, 0, -90); //sets rotation
-            //gameObject.transform.Rotate(0, 0, -90);
-
+            gameObject.transform.localRotation = Quaternion.Euler(0, 0, -90);
+            //rotates hand as a visual indicator that the player is loosening soil w/ trowel which isnt implemented yet  
             //grab trowel and set up
         }
     }
@@ -42,7 +43,7 @@ public class Player_pull_script : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (currentPlant && SoilNeedsLoosened)
+        if (currentPlant)
         {
 
             //getButton does press + held, getButtonDown only goes off once when it was firt pressed
@@ -65,7 +66,7 @@ public class Player_pull_script : MonoBehaviour
                     rightMost = totalDegree;
             }
 
-            if (Mathf.Abs(leftMost) + Mathf.Abs(rightMost) >= 360)
+            if (SoilNeedsLoosened && Mathf.Abs(leftMost) + Mathf.Abs(rightMost) >= 360)
             {
                 Debug.Log("all the way around");
                 Debug.Log(leftMost);
