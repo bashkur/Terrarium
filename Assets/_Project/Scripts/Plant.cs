@@ -7,7 +7,7 @@ public class Plant : MonoBehaviour
         // spawn a plant on left click
         if (Input.GetMouseButtonDown(0))
         {
-            Debug.Log("Plant a plant! :)");
+            //Debug.Log("Plant a plant! :)");
         }
     }
 }
