@@ -9,6 +9,8 @@ public class Plant : MonoBehaviour
     public float angleDifference;
     public Vector3 playerStartPosition;
 
+    public Gradient IndicatorColors;
+
     public float aniamtionCuveItem;
 
     //for circle:

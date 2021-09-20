@@ -59,7 +59,6 @@ public class Player_pull_script : MonoBehaviour
                 gameObject.transform.RotateAround(currentPlant.transform.position, Vector3.up, -speed * Time.deltaTime);
                 currentAngle -= speed * Time.deltaTime;
                 currentAngle %= 360;
-                currentPlant.UpdatePlayerLoation(currentAngle);
                 if (currentAngle < leftMost)
                     leftMost = currentAngle;
             }
@@ -71,10 +70,12 @@ public class Player_pull_script : MonoBehaviour
                 gameObject.transform.RotateAround(currentPlant.transform.position, Vector3.up, speed * Time.deltaTime);
                 currentAngle += speed * Time.deltaTime;
                 currentAngle %= 360;
-                currentPlant.UpdatePlayerLoation(currentAngle);
                 if (currentAngle > rightMost)
                     rightMost = currentAngle;
             }
+
+            currentPlant.UpdatePlayerLoation(currentAngle);
+
 
             if (SoilNeedsLoosened && Mathf.Abs(leftMost) + Mathf.Abs(rightMost) >= 360)
             {

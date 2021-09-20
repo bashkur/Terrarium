@@ -63,10 +63,13 @@ public class ParticleAttraction : MonoBehaviour
         //newSize = (1-(parentPlant.getCurrentDifference() / 360.0f)) * (0.2f - 0.0001f) + 0.0001f;
         newSize = curve.Evaluate(((parentPlant.getCurrentDifference() / 360.0f)))/360.0f * (0.2f - 0.0001f) + 0.0001f;
 
+        Color newColor = parentPlant.IndicatorColors.Evaluate(1-(parentPlant.getCurrentDifference() / 360.0f));
+
         for (int i = 0; i < numParticlesAlive; i++)
         {
             //particles[i].size = Mathf.Lerp(particles[i].size, newSize, Time.deltaTime);
             particles[i].size = newSize;
+            particles[i].color = newColor;
             //particles[i].size = aniamtionCuveItem;
         }
         circleIndicator.SetParticles(particles, numParticlesAlive);
