@@ -23,26 +23,26 @@ public class Player_pull_script : MonoBehaviour
         {
             distanceFromPlant = (gameObject.transform.position - currentPlant.transform.position).magnitude;
         }
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        SetPlant(currentPlant);
         if (SoilNeedsLoosened)
         {
             //rotates by -90 degrees
-            gameObject.transform.localRotation = Quaternion.Euler(0,0,-90); //sets rotation
+            gameObject.transform.localRotation = Quaternion.Euler(0, 0, -90); //sets rotation
             //gameObject.transform.Rotate(0, 0, -90);
 
             //grab trowel and set up
         }
     }
 
+    // Start is called before the first frame update
+    void Start()
+    {
+        SetPlant(currentPlant);
+    }
+
     // Update is called once per frame
     void Update()
     {
-        if (currentPlant)
+        if (currentPlant && SoilNeedsLoosened)
         {
 
             //getButton does press + held, getButtonDown only goes off once when it was firt pressed
@@ -65,16 +65,13 @@ public class Player_pull_script : MonoBehaviour
                     rightMost = totalDegree;
             }
 
-            if (SoilNeedsLoosened)
+            if (Mathf.Abs(leftMost) + Mathf.Abs(rightMost) >= 360)
             {
-                if (Mathf.Abs(leftMost) + Mathf.Abs(rightMost) >= 360)
-                {
-                    Debug.Log("all the way around");
-                    Debug.Log(leftMost);
-                    Debug.Log(rightMost);
+                Debug.Log("all the way around");
+                Debug.Log(leftMost);
+                Debug.Log(rightMost);
 
-                    SoilNeedsLoosened = false;
-                }
+                SoilNeedsLoosened = false;
             }
         }
     }
