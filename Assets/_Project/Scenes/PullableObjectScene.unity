@@ -307,13 +307,45 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 636279184}
-  m_LocalRotation: {x: -0, y: 0.95586646, z: -0.29380167, w: 0}
-  m_LocalPosition: {x: 3.354, y: 2.893, z: 0.68}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: -0.7071068, w: 0}
+  m_LocalPosition: {x: 1.82, y: 6.03, z: -1.61}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 34.171, y: 180, z: 0}
+  m_LocalEulerAnglesHint: {x: 90, y: 180, z: 0}
+--- !u!1 &805866395 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3321145228292132770, guid: 1ff9e6d6d49d69446a380448e7562d22, type: 3}
+  m_PrefabInstance: {fileID: 1939826040}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &805866396 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4485005444489272988, guid: 1ff9e6d6d49d69446a380448e7562d22, type: 3}
+  m_PrefabInstance: {fileID: 1939826040}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 805866395}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbb3c69a26f601c4b8a53acf392f34e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!111 &805866401
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 805866395}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: 52522ef485f3c25448778e44b56dfabd, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: 52522ef485f3c25448778e44b56dfabd, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 0
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &936523074
 GameObject:
   m_ObjectHideFlags: 0
@@ -364,8 +396,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 320a4afd2906fe540ac1138acb5b68b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentPlant: {fileID: 0}
+  currentPlant: {fileID: 805866396}
   speed: 50
+  currentAngle: 0
 --- !u!114 &936523077
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -373,13 +406,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 936523074}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b3dc5b17e56161b4384c8489d7b1d96f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 200
-  rotationSpeed: 0
+  rotationSpeed: 1
 --- !u!65 &936523078
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -985,6 +1018,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3383609261328942323, guid: 1ff9e6d6d49d69446a380448e7562d22, type: 3}
+      propertyPath: prewarm
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3383609261328942323, guid: 1ff9e6d6d49d69446a380448e7562d22, type: 3}
+      propertyPath: ringBufferMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3383609261328942323, guid: 1ff9e6d6d49d69446a380448e7562d22, type: 3}
+      propertyPath: ShapeModule.enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3383609261328942323, guid: 1ff9e6d6d49d69446a380448e7562d22, type: 3}
+      propertyPath: EmissionModule.rateOverTime.scalar
+      value: 800
+      objectReference: {fileID: 0}
+    - target: {fileID: 4685933704866223494, guid: 1ff9e6d6d49d69446a380448e7562d22, type: 3}
+      propertyPath: attractedTo
+      value: 
+      objectReference: {fileID: 936523074}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1ff9e6d6d49d69446a380448e7562d22, type: 3}
 --- !u!1 &1948844875

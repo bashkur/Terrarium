@@ -4,11 +4,12 @@ public class Plant : MonoBehaviour
 {
 
     //the part of the circle around the plant the player need to pull in
-    private float pullAngle = 0;
+    public float pullAngle = 0;
+    public float playerLoation;
+    public float angleDifference;
+    public Vector3 playerStartPosition;
 
-    //radius of interact circle around plant
-    public float distanceFromPlant = 0;
-
+    public float aniamtionCuveItem;
 
     //for circle:
     /*
@@ -23,6 +24,20 @@ public class Plant : MonoBehaviour
      * first things first get a circle + mouse indicator
      */
 
+    public float getCurrentDifference()
+    {
+        return angleDifference;
+    }
+
+    public void UpdatePlayerLoation(float currentAngle)
+    {
+        playerLoation = currentAngle;
+        angleDifference = (playerLoation - pullAngle + 180 ) % 360 - 180;
+        angleDifference = Mathf.Abs(angleDifference < -180 ? angleDifference + 360 : angleDifference);
+
+        //Debug.Log(angleDifference);
+    }
+
     private void Start()
     {
         pullAngle = Random.Range(0.0f, 360.0f);
@@ -30,6 +45,7 @@ public class Plant : MonoBehaviour
 
     private void Update()
     {
+
         // spawn a plant on left click
         if (Input.GetMouseButtonDown(0))
         {

@@ -285,7 +285,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.02
+      scalar: 0.001
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -4817,6 +4817,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d19b9b48431b3144393de30faa593563, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attractedTo: {fileID: 0}
 --- !u!1 &3321145228292132770
 GameObject:
   m_ObjectHideFlags: 0

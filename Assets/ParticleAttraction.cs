@@ -1,28 +1,75 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 
 public class ParticleAttraction : MonoBehaviour
 {
 
-    public ParticleSystem circleIndicator;
-    public ParticleSystem.Particle[] particles;
+    private ParticleSystem circleIndicator;
+    private ParticleSystem.Particle[] particles;
 
-    public GameObject attractedTo;
+    //public GameObject attractedTo;
+    //private float maxDist = 5.0f;
+
+    private Plant parentPlant;
+
+    public AnimationCurve curve;
 
     void Start()
     {
-        circleIndicator = gameObject.GetComponent(ParticleSystem) as ParticleSystem;
-        particles = circleIndicator.particles;
+        InitializeIfNeeded();
+        parentPlant = gameObject.transform.parent.GetComponent<Plant>();
+        AnimationClip clip = gameObject.transform.parent.GetComponent<Animation>().clip;
+        AnimationClipCurveData[] allCurves = GetAllCurves(clip, true);
+        curve = allCurves[0].curve;
     }
 
-    void Update()
+    //yoinked and edited 8)
+    public static AnimationClipCurveData[] GetAllCurves(AnimationClip clip, bool includeCurveData)
     {
-        for (int i = 0; i < particles.GetUpperBound(0); i++)
+        EditorCurveBinding[] curveBindings = AnimationUtility.GetCurveBindings(clip);
+        AnimationClipCurveData[] dataArray = new AnimationClipCurveData[curveBindings.Length];
+        for (int i = 0; i < dataArray.Length; i++)
         {
-            particles[i].position = Vector3.Lerp(particles[i].position, attractedTo.transform.position, Time.deltaTime / 2.0f);
+            dataArray[i] = new AnimationClipCurveData(curveBindings[i]);
+            if (includeCurveData)
+            {
+                dataArray[i].curve = AnimationUtility.GetEditorCurve(clip, curveBindings[i]);
+            }
         }
-        circleIndicator.particles = particles;
+        return dataArray;
+    }
+
+    void InitializeIfNeeded()
+    {
+        if (circleIndicator == null)
+            circleIndicator = GetComponent<ParticleSystem>();
+
+        if (particles == null || particles.Length < circleIndicator.main.maxParticles)
+            particles = new ParticleSystem.Particle[circleIndicator.main.maxParticles];
+    }
+
+    
+
+    void LateUpdate()
+    {
+        InitializeIfNeeded();
+
+        int numParticlesAlive = circleIndicator.GetParticles(particles);
+
+        float newSize = 0.0001f;
+        //((parentPlant.getCurrentDifference()) / 360.0f) = (0.0f, 1.0f]
+        //newSize = (1-(parentPlant.getCurrentDifference() / 360.0f)) * (0.2f - 0.0001f) + 0.0001f;
+        newSize = curve.Evaluate(((parentPlant.getCurrentDifference() / 360.0f)))/360.0f * (0.2f - 0.0001f) + 0.0001f;
+
+        for (int i = 0; i < numParticlesAlive; i++)
+        {
+            //particles[i].size = Mathf.Lerp(particles[i].size, newSize, Time.deltaTime);
+            particles[i].size = newSize;
+            //particles[i].size = aniamtionCuveItem;
+        }
+        circleIndicator.SetParticles(particles, numParticlesAlive);
     }
 
 }
