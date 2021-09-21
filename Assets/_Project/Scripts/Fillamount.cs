@@ -10,6 +10,7 @@ public class Fillamount : MonoBehaviour
     public float waitTime = 30.0f;
     private bool lerp = false;
     private float newTarget = 0.0f;
+    public Gradient ColorChanger;
 
     void Start()
     {
@@ -34,6 +35,7 @@ public class Fillamount : MonoBehaviour
         if (lerp == true)
         {
             StressBar.fillAmount = Mathf.Lerp(StressBar.fillAmount, newTarget, Time.deltaTime/2);
+            StressBar.color = ColorChanger.Evaluate(StressBar.fillAmount / (1 - HealthCap.fillAmount));
         }
 
         if (StressBar.fillAmount < 1-HealthCap.fillAmount)
