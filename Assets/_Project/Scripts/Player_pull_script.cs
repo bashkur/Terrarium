@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Timers;
 
 public class Player_pull_script : MonoBehaviour
 {
@@ -22,6 +23,14 @@ public class Player_pull_script : MonoBehaviour
     private bool click = false;
     private bool hold = false;
     private bool pullingOut = false;
+
+
+    private Timer diggingHoleTimer;
+    private Vector3 lastPos;
+    public int timerInterval = 250;
+    public int lineDurration = 5;
+    public float minDistanceBetweenCalls = 0.5f;
+    //Debug.DrawLine (Vector3.zero, new Vector3 (1, 0, 0), Color.red);
 
     private Vector3 startPosition;
 
@@ -55,6 +64,31 @@ public class Player_pull_script : MonoBehaviour
     void Start()
     {
         SetPlant(currentPlant);
+        if (SoilNeedsLoosened)
+        {
+            diggingHoleTimer = new Timer();
+            diggingHoleTimer.Elapsed += new ElapsedEventHandler(onTimer);
+            diggingHoleTimer.Interval = timerInterval;
+
+            lastPos = gameObject.transform.position;
+
+            diggingHoleTimer.Start();
+        }
+    }
+
+    void onTimer(object source, ElapsedEventArgs e)
+    {
+        
+        if (lastPos == null || (lastPos- gameObject.transform.position).magnitude < minDistanceBetweenCalls)
+        {
+            return;
+        }
+
+        Debug.Log("timer event");
+
+        //do things
+        Debug.DrawLine(lastPos, gameObject.transform.position, Color.red, lineDurration, false);
+        lastPos = gameObject.transform.position;
     }
 
     // Update is called once per frame
@@ -112,6 +146,7 @@ public class Player_pull_script : MonoBehaviour
                     //Debug.Log(rightMost);
 
                     SoilNeedsLoosened = false;
+                    diggingHoleTimer.Stop();
                     currentPlant.loosenedPlant();
                     pullingOut = true;
                 }
