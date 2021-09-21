@@ -19,6 +19,10 @@ public class Player_pull_script : MonoBehaviour
     public float currentAngle = 0;
     public float startingAngle = 0;
 
+    private bool click = false;
+    private bool hold = false;
+    private bool pullingOut = false;
+
     private Vector3 startPosition;
 
     void SetPlant(Plant plant)
@@ -60,11 +64,25 @@ public class Player_pull_script : MonoBehaviour
         {
             if (Input.GetButton("Fire1"))
             {
-                Debug.Log("clicked");
+                if (!hold && click)
+                {
+                    Debug.Log("holdin");
+                    hold = true;
+                    click = false;
+                }
+                else if(!hold)
+                {
+                    click = true;
+                }
+            }
+            if (Input.GetButtonUp("Fire1"))
+            {
+                click = false;
+                hold = false;
             }
 
             //getButton does press + held, getButtonDown only goes off once when it was firt pressed
-                if (Input.GetButton("Counterclockwise"))
+            if (Input.GetButton("Counterclockwise"))
             {
                 //Debug.Log("ccw");
                 gameObject.transform.RotateAround(currentPlant.transform.position, Vector3.up, -speed * Time.deltaTime);
@@ -87,7 +105,7 @@ public class Player_pull_script : MonoBehaviour
 
             if (SoilNeedsLoosened)
             {
-                if(Mathf.Abs(leftMost) + Mathf.Abs(rightMost) >= 360)
+                if (Mathf.Abs(leftMost) + Mathf.Abs(rightMost) >= 360)
                 {
                     Debug.Log("all the way around");
                     //Debug.Log(leftMost);
@@ -95,7 +113,15 @@ public class Player_pull_script : MonoBehaviour
 
                     SoilNeedsLoosened = false;
                     currentPlant.loosenedPlant();
+                    pullingOut = true;
                 }
+            }
+
+            if (pullingOut)
+            {
+                //Debug.Log("pull!");
+                //send command to plant!
+                currentPlant.isPulling(hold);
             }
         }
     }

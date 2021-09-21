@@ -7,7 +7,6 @@ public class Fillamount : MonoBehaviour
 {
     public Image StressBar;
     public Image HealthCap;
-    public float waitTime = 30.0f;
     private bool lerp = false;
     private float newTarget = 0.0f;
     public Gradient ColorChanger;
@@ -16,10 +15,9 @@ public class Fillamount : MonoBehaviour
     void Start()
     {
         StressBar.fillAmount = 0;
-        lerpFill(0.85f);
     }
 
-     void lerpFill(float newAmmount)
+     public void lerpFill(float newAmmount)
      {
         lerp = true;
         newTarget = newAmmount;

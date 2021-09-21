@@ -540,6 +540,7 @@ MonoBehaviour:
   currentPlant: {fileID: 805866396}
   speed: 50
   currentAngle: 0
+  startingAngle: 0
 --- !u!114 &936523077
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1159,6 +1160,7 @@ MonoBehaviour:
     m_Mode: 0
     m_NumColorKeys: 4
     m_NumAlphaKeys: 2
+  overStressed: 0
 --- !u!114 &1490741954
 MonoBehaviour:
   m_ObjectHideFlags: 0

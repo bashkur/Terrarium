@@ -11,8 +11,12 @@ public class Plant : MonoBehaviour
     public GameObject debugArrow;
 
     public Gradient IndicatorColors;
-
+    public GameObject stressMeterObj;
+    private Fillamount stressMeter;
     public float aniamtionCuveItem;
+
+    private bool pulling = false;
+    
 
     //for circle:
     /*
@@ -63,8 +67,34 @@ public class Plant : MonoBehaviour
         }
     }
 
+    public void isPulling(bool isPull)
+    {
+        bool oldValue = isPull;
+
+        pulling = isPull;
+
+        if (pulling != isPull)
+        {
+            if (pulling)
+            {
+                //start pulling animation
+                stressMeter.lerpFill(0.85f);
+            }
+            else
+            {
+                //return to lock picking section
+                stressMeter.lerpFill(0.0f);
+            }
+        }
+
+        //increase stress the further you pull + lower maxhealth for stress if theres any uncut roots
+    }
+
     private void Start()
     {
+
+        stressMeter = stressMeterObj.GetComponent<Fillamount>();
+
         Quaternion rotation = Quaternion.LookRotation(Vector3.forward, Vector3.up);
         debugArrow.transform.rotation = rotation;
 
