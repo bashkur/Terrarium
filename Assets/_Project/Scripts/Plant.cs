@@ -40,6 +40,21 @@ public class Plant : MonoBehaviour
         //Debug.Log(angleDifference);
     }
 
+    public void loosenedPlant()
+    {
+        //called to transition to next step in freeing the plant!
+        //GetComponentInChildren
+        for (int i = 0; i < gameObject.transform.childCount; i++)
+        {
+            GameObject child = gameObject.transform.GetChild(i).gameObject;
+            if (child.GetComponent<ParticleAttraction>())
+            {
+                //enabled = true/false; is for components only
+                child.SetActive(true);
+            }
+        }
+    }
+
     private void Start()
     {
         pullAngle = Random.Range(0.0f, 360.0f);

@@ -84,6 +84,7 @@ public class Player_pull_script : MonoBehaviour
                 //Debug.Log(rightMost);
 
                 SoilNeedsLoosened = false;
+                currentPlant.loosenedPlant();
             }
         }
     }

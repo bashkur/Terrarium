@@ -946,6 +946,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1707317966466606705, guid: 1ff9e6d6d49d69446a380448e7562d22, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3321145228292132770, guid: 1ff9e6d6d49d69446a380448e7562d22, type: 3}
       propertyPath: m_Name
       value: Plant
@@ -1033,6 +1037,62 @@ PrefabInstance:
     - target: {fileID: 3383609261328942323, guid: 1ff9e6d6d49d69446a380448e7562d22, type: 3}
       propertyPath: EmissionModule.rateOverTime.scalar
       value: 800
+      objectReference: {fileID: 0}
+    - target: {fileID: 4485005444489272988, guid: 1ff9e6d6d49d69446a380448e7562d22, type: 3}
+      propertyPath: IndicatorColors.ctime1
+      value: 29298
+      objectReference: {fileID: 0}
+    - target: {fileID: 4485005444489272988, guid: 1ff9e6d6d49d69446a380448e7562d22, type: 3}
+      propertyPath: IndicatorColors.ctime2
+      value: 56090
+      objectReference: {fileID: 0}
+    - target: {fileID: 4485005444489272988, guid: 1ff9e6d6d49d69446a380448e7562d22, type: 3}
+      propertyPath: IndicatorColors.ctime3
+      value: 65535
+      objectReference: {fileID: 0}
+    - target: {fileID: 4485005444489272988, guid: 1ff9e6d6d49d69446a380448e7562d22, type: 3}
+      propertyPath: IndicatorColors.key0.b
+      value: 0.051886797
+      objectReference: {fileID: 0}
+    - target: {fileID: 4485005444489272988, guid: 1ff9e6d6d49d69446a380448e7562d22, type: 3}
+      propertyPath: IndicatorColors.key0.g
+      value: 0.051886797
+      objectReference: {fileID: 0}
+    - target: {fileID: 4485005444489272988, guid: 1ff9e6d6d49d69446a380448e7562d22, type: 3}
+      propertyPath: IndicatorColors.key0.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4485005444489272988, guid: 1ff9e6d6d49d69446a380448e7562d22, type: 3}
+      propertyPath: IndicatorColors.key1.b
+      value: 0.23137254
+      objectReference: {fileID: 0}
+    - target: {fileID: 4485005444489272988, guid: 1ff9e6d6d49d69446a380448e7562d22, type: 3}
+      propertyPath: IndicatorColors.key1.g
+      value: 0.5186582
+      objectReference: {fileID: 0}
+    - target: {fileID: 4485005444489272988, guid: 1ff9e6d6d49d69446a380448e7562d22, type: 3}
+      propertyPath: IndicatorColors.key2.b
+      value: 0.15294117
+      objectReference: {fileID: 0}
+    - target: {fileID: 4485005444489272988, guid: 1ff9e6d6d49d69446a380448e7562d22, type: 3}
+      propertyPath: IndicatorColors.key2.g
+      value: 0.9513715
+      objectReference: {fileID: 0}
+    - target: {fileID: 4485005444489272988, guid: 1ff9e6d6d49d69446a380448e7562d22, type: 3}
+      propertyPath: IndicatorColors.key2.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4485005444489272988, guid: 1ff9e6d6d49d69446a380448e7562d22, type: 3}
+      propertyPath: IndicatorColors.key3.g
+      value: 0.9811321
+      objectReference: {fileID: 0}
+    - target: {fileID: 4485005444489272988, guid: 1ff9e6d6d49d69446a380448e7562d22, type: 3}
+      propertyPath: IndicatorColors.key3.r
+      value: 0.17797953
+      objectReference: {fileID: 0}
+    - target: {fileID: 4485005444489272988, guid: 1ff9e6d6d49d69446a380448e7562d22, type: 3}
+      propertyPath: IndicatorColors.m_NumColorKeys
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4685933704866223494, guid: 1ff9e6d6d49d69446a380448e7562d22, type: 3}
       propertyPath: attractedTo

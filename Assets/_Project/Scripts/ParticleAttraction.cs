@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
+//disables warnings for color and size.. they still work
+#pragma warning disable 0618
+
 public class ParticleAttraction : MonoBehaviour
 {
 
