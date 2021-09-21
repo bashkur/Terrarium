@@ -11,6 +11,7 @@ public class Fillamount : MonoBehaviour
     private bool lerp = false;
     private float newTarget = 0.0f;
     public Gradient ColorChanger;
+    public bool overStressed = false;
 
     void Start()
     {
@@ -44,7 +45,8 @@ public class Fillamount : MonoBehaviour
         }
         else if (StressBar.fillAmount > 1-HealthCap.fillAmount)
         {
-            Debug.Log("Over Stressed!");
+            overStressed = true;
+            //Debug.Log("Over Stressed!");
         }
     }
 }

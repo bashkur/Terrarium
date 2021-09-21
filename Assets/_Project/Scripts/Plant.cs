@@ -8,6 +8,7 @@ public class Plant : MonoBehaviour
     public float playerLoation;
     public float angleDifference;
     public Vector3 playerStartPosition;
+    public GameObject debugArrow;
 
     public Gradient IndicatorColors;
 
@@ -38,6 +39,13 @@ public class Plant : MonoBehaviour
         angleDifference = Mathf.Abs(angleDifference < -180 ? angleDifference + 360 : angleDifference);
 
         //Debug.Log(angleDifference);
+
+        //point arrow at player
+        //playerStartPosition.y = gameObject.transform.position.y;
+        //Quaternion rotation = Quaternion.LookRotation(playerStartPosition, Vector3.up);
+        //debugArrow.transform.rotation = rotation;
+        //debugArrow.transform.Rotate(0, playerLoation, 0);
+        debugArrow.transform.localEulerAngles = new Vector3(0, playerLoation, 0);
     }
 
     public void loosenedPlant()
@@ -57,6 +65,9 @@ public class Plant : MonoBehaviour
 
     private void Start()
     {
+        Quaternion rotation = Quaternion.LookRotation(Vector3.forward, Vector3.up);
+        debugArrow.transform.rotation = rotation;
+
         pullAngle = Random.Range(0.0f, 360.0f);
     }
 

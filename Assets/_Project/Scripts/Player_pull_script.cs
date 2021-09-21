@@ -17,6 +17,7 @@ public class Player_pull_script : MonoBehaviour
     private float leftMost = 0;
     private float rightMost = 0;
     public float currentAngle = 0;
+    public float startingAngle = 0;
 
     private Vector3 startPosition;
 
@@ -37,6 +38,12 @@ public class Player_pull_script : MonoBehaviour
             gameObject.transform.localRotation = Quaternion.Euler(0, 0, -90);
             //rotates hand as a visual indicator that the player is loosening soil w/ trowel which isnt implemented yet  
             //grab trowel and set up
+
+            //get angle b/w this gameobject location and plant.Forward
+
+            Vector3 dir = (plant.gameObject.transform.position - gameObject.transform.position).normalized;
+            //find angle = dot
+            startingAngle = Mathf.Acos(Vector3.Dot(dir, plant.transform.forward));
         }
     }
 
@@ -51,14 +58,17 @@ public class Player_pull_script : MonoBehaviour
     {
         if (currentPlant)
         {
+            if (Input.GetButton("Fire1"))
+            {
+                Debug.Log("clicked");
+            }
 
             //getButton does press + held, getButtonDown only goes off once when it was firt pressed
-            if (Input.GetButton("Counterclockwise"))
+                if (Input.GetButton("Counterclockwise"))
             {
                 //Debug.Log("ccw");
                 gameObject.transform.RotateAround(currentPlant.transform.position, Vector3.up, -speed * Time.deltaTime);
                 currentAngle -= speed * Time.deltaTime;
-                currentAngle %= 360;
                 if (currentAngle < leftMost)
                     leftMost = currentAngle;
             }
@@ -69,22 +79,23 @@ public class Player_pull_script : MonoBehaviour
                 //Debug.Log("cw");
                 gameObject.transform.RotateAround(currentPlant.transform.position, Vector3.up, speed * Time.deltaTime);
                 currentAngle += speed * Time.deltaTime;
-                currentAngle %= 360;
                 if (currentAngle > rightMost)
                     rightMost = currentAngle;
             }
 
-            currentPlant.UpdatePlayerLoation(currentAngle);
+            currentPlant.UpdatePlayerLoation((startingAngle + currentAngle)%360);
 
-
-            if (SoilNeedsLoosened && Mathf.Abs(leftMost) + Mathf.Abs(rightMost) >= 360)
+            if (SoilNeedsLoosened)
             {
-                Debug.Log("all the way around");
-                //Debug.Log(leftMost);
-                //Debug.Log(rightMost);
+                if(Mathf.Abs(leftMost) + Mathf.Abs(rightMost) >= 360)
+                {
+                    Debug.Log("all the way around");
+                    //Debug.Log(leftMost);
+                    //Debug.Log(rightMost);
 
-                SoilNeedsLoosened = false;
-                currentPlant.loosenedPlant();
+                    SoilNeedsLoosened = false;
+                    currentPlant.loosenedPlant();
+                }
             }
         }
     }
