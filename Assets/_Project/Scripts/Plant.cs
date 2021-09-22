@@ -1,4 +1,5 @@
 using UnityEngine;
+//using System;
 
 public class Plant : MonoBehaviour
 {
@@ -9,13 +10,16 @@ public class Plant : MonoBehaviour
     public float angleDifference;
     public Vector3 playerStartPosition;
     public GameObject debugArrow;
+    public Vector3 projectOnto;
+    public float pullDistance = 10.0f;
 
     public Gradient IndicatorColors;
     public GameObject stressMeterObj;
     private Fillamount stressMeter;
 
-    private bool pulling = false;
-    
+    private bool pulling;
+
+    //public event EventHandler stressChangedEvent;
 
     //for circle:
     /*
@@ -66,18 +70,25 @@ public class Plant : MonoBehaviour
         }
     }
 
-    public void isPulling(bool isPull)
+    public void isPulling(bool isPull, float distance)
     {
-        bool oldValue = isPull;;
+        bool oldValue = pulling;
 
         pulling = isPull;
 
-        if (pulling != isPull)
+        //Debug.Log("pullin");
+        //Debug.LogFormat("{0} vs {1}", oldValue, isPull);
+
+        if (pulling != oldValue)
         {
+            //Debug.Log("change");
+            //Debug.Log(isPull);
             if (pulling)
             {
                 //start pulling animation
-                stressMeter.lerpFill(0.85f);
+                
+                stressMeter.lerpFill(distance / pullDistance);
+                //stressMeter.lerpFill(0.85f);
             }
             else
             {
@@ -97,7 +108,10 @@ public class Plant : MonoBehaviour
         Quaternion rotation = Quaternion.LookRotation(Vector3.forward, Vector3.up);
         debugArrow.transform.rotation = rotation;
 
-        pullAngle = Random.Range(0.0f, 360.0f);
+        pullAngle = UnityEngine.Random.Range(0.0f, 360.0f);
+        pulling = false;
+
+        projectOnto = Quaternion.AngleAxis(pullAngle, Vector3.up) * Vector3.forward;
     }
 
     private void Update()

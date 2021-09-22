@@ -30,6 +30,8 @@ public class Player_pull_script : MonoBehaviour
     private Vector3 startPosition;
     public float distFromPlantToDraw = 1.0f;
 
+    private Vector3 mouseStartPos;
+
     void SetPlant(Plant plant)
     {
         currentPlant = plant;
@@ -110,6 +112,7 @@ public class Player_pull_script : MonoBehaviour
                 {
                     //Debug.Log("holdin");
                     hold = true;
+                    mouseStartPos = Input.mousePosition;
 
                 }
                 else if(!hold)
@@ -149,7 +152,7 @@ public class Player_pull_script : MonoBehaviour
             {
                 if (Mathf.Abs(leftMost) + Mathf.Abs(rightMost) >= 360)
                 {
-                    Debug.Log("all the way around");
+                    //Debug.Log("all the way around");
                     //Debug.Log(leftMost);
                     //Debug.Log(rightMost);
 
@@ -164,9 +167,26 @@ public class Player_pull_script : MonoBehaviour
 
             if (pullingOut)
             {
-                //Debug.Log("pull!");
+                //Input.mousePosition
+
+                //not just raw distance.. we want distance from plant?
+                //project line (mousepos - oldmousepos) onto the line that comes off the plant @ its given angle
+                //start w/ Vector3.forward for the plant, rotate about y axis by the degrees given
+
+                float distanceAway = 0;
+
+                if (hold)
+                {
+                    Vector3 projectOnto = currentPlant.projectOnto.normalized;
+                    Vector3 mouse = Input.mousePosition - mouseStartPos;
+                    distanceAway = Vector3.Project(mouse, projectOnto).magnitude;
+                }
+
+                Debug.Log(distanceAway);
+
+                //Debug.Log("player pull!");
                 //send command to plant!
-                currentPlant.isPulling(hold);
+                currentPlant.isPulling(hold, distanceAway);
             }
         }
     }
