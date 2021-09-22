@@ -38,6 +38,8 @@ public class Player_pull_script : MonoBehaviour
         if (plant)
         {
             distanceFromPlant = (gameObject.transform.position - currentPlant.transform.position).magnitude;
+            //currentPlant.stressMeter.HealthCap.fillAmount = currentPlant.diffiulty;
+            //currentPlant.updatePullAngle();
         }
         if (SoilNeedsLoosened)
         {

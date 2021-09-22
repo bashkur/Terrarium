@@ -6,6 +6,7 @@ public class Plant : MonoBehaviour
 
     //the part of the circle around the plant the player need to pull in
     public float pullAngle { get; set; }
+    public float pullWeight { get; set; }
     public float playerLoation { get; set; }
     public float angleDifference { get; set; }
     public Vector3 playerStartPosition { get; set; }
@@ -14,14 +15,27 @@ public class Plant : MonoBehaviour
     public float pullDistance;
 
     public Gradient IndicatorColors;
-    public GameObject stressMeterObj;
-    private Fillamount stressMeter;
+    //public GameObject stressMeterObj;
+    
+    public float currentPullTime { get; set; }
+    public float pullTime = 1.0f;
+    public float pullTolerance = 0.2f;
+    public float diffiulty = 0.2f;
+    public float numToComplete = 3;
+    public Fillamount stressMeter;
 
     private bool pulling;
+    private bool donePulling;
+
+    private float totalTime = 0.0f;
 
     public void updatePullAngle()
     {
+        //Debug.Log("setup");
+        //also generates a random pullWeight
         pullAngle = UnityEngine.Random.Range(0.0f, 360.0f);
+        stressMeter.HealthCap.fillAmount = diffiulty;
+        pullWeight = UnityEngine.Random.Range(0.0f, 1.0f - diffiulty);
     }
 
     public void UpdatePlayerLoation(float currentAngle)
@@ -61,31 +75,10 @@ public class Plant : MonoBehaviour
 
         pulling = isPull;
 
-        //Debug.Log("pullin");
-        //Debug.LogFormat("{0} vs {1}", oldValue, isPull);
-
-        /*
-        if (pulling != oldValue)
-        {
-            //Debug.Log("change");
-            //Debug.Log(isPull);
-            if (pulling)
-            {
-                //start pulling animation
-                
-                stressMeter.lerpFill(0.85f);
-            }
-            else
-            {
-                //return to lock picking section
-                stressMeter.lerpFill(0.0f);
-            }
-        }
-        */
-
         //takes distance into account not just holding click
         if (pulling)
         {
+            
             float dist = distance / pullDistance;
             //Debug.LogFormat("Perctent fill {0}, dist {1}", dist, distance);
             stressMeter.lerpFill(dist);
@@ -95,30 +88,63 @@ public class Plant : MonoBehaviour
             stressMeter.lerpFill(0.0f);
         }
 
+        
         //increase stress the further you pull + lower maxhealth for stress if theres any uncut roots
     }
 
     private void Start()
     {
 
-        stressMeter = stressMeterObj.GetComponent<Fillamount>();
+        //stressMeter = stressMeterObj.GetComponent<Fillamount>();
 
         Quaternion rotation = Quaternion.LookRotation(Vector3.forward, Vector3.up);
         debugArrow.transform.rotation = rotation;
 
         updatePullAngle();
         pulling = false;
+        //pullAngle = 0;
 
         projectOnto = Quaternion.AngleAxis(pullAngle, Vector3.up) * Vector3.forward;
     }
 
     private void Update()
     {
-
+        totalTime += Time.deltaTime;
         // spawn a plant on left click
         if (Input.GetMouseButtonDown(0))
         {
             //Debug.Log("Plant a plant! :)");
+        }
+
+        if (!donePulling && pulling)
+        {
+            if (Mathf.Abs(stressMeter.StressBar.fillAmount - pullWeight) <= pullTolerance)
+            {
+                currentPullTime += Time.deltaTime;
+                if (currentPullTime >= pullTime)
+                {
+                    numToComplete--;
+                    stressMeter.StressBar.fillAmount = 0.0f;
+                    if (numToComplete > 0)
+                    {
+                        currentPullTime = 0;
+                        updatePullAngle();
+                    }
+                    else
+                    {
+                        donePulling = true;
+                        pulling = false;
+                    }
+                }
+            }
+            else if (currentPullTime > 0)
+            {
+                currentPullTime = Mathf.Max(currentPullTime - Time.deltaTime, 0.0f);
+            }
+        }
+        else
+        {
+            //give player a score! they just pulled oout the plant
         }
     }
 
