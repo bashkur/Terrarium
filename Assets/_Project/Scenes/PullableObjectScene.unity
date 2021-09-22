@@ -517,7 +517,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentPlant: {fileID: 805866396}
-  speed: 50
+  speed: 100
   currentAngle: 0
   startingAngle: 0
   distance: 0.05
@@ -1479,6 +1479,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4485005444489272988, guid: 1ff9e6d6d49d69446a380448e7562d22, type: 3}
+      propertyPath: pullDistance
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 4485005444489272988, guid: 1ff9e6d6d49d69446a380448e7562d22, type: 3}
       propertyPath: stressMeterObj
       value: 
       objectReference: {fileID: 1490741951}
@@ -1542,6 +1546,18 @@ PrefabInstance:
       propertyPath: attractedTo
       value: 
       objectReference: {fileID: 936523074}
+    - target: {fileID: 7580309509723104318, guid: 1ff9e6d6d49d69446a380448e7562d22, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7580309509723104318, guid: 1ff9e6d6d49d69446a380448e7562d22, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7580309509723104318, guid: 1ff9e6d6d49d69446a380448e7562d22, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4685933704866223494, guid: 1ff9e6d6d49d69446a380448e7562d22, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 1ff9e6d6d49d69446a380448e7562d22, type: 3}

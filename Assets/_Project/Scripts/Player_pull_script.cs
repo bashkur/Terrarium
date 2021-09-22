@@ -182,7 +182,7 @@ public class Player_pull_script : MonoBehaviour
                     distanceAway = Vector3.Project(mouse, projectOnto).magnitude;
                 }
 
-                Debug.Log(distanceAway);
+                //Debug.Log(distanceAway);
 
                 //Debug.Log("player pull!");
                 //send command to plant!

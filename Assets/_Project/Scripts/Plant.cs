@@ -11,7 +11,7 @@ public class Plant : MonoBehaviour
     public Vector3 playerStartPosition;
     public GameObject debugArrow;
     public Vector3 projectOnto;
-    public float pullDistance = 10.0f;
+    public float pullDistance = 100.0f;
 
     public Gradient IndicatorColors;
     public GameObject stressMeterObj;
@@ -79,6 +79,7 @@ public class Plant : MonoBehaviour
         //Debug.Log("pullin");
         //Debug.LogFormat("{0} vs {1}", oldValue, isPull);
 
+        /*
         if (pulling != oldValue)
         {
             //Debug.Log("change");
@@ -87,14 +88,26 @@ public class Plant : MonoBehaviour
             {
                 //start pulling animation
                 
-                stressMeter.lerpFill(distance / pullDistance);
-                //stressMeter.lerpFill(0.85f);
+                stressMeter.lerpFill(0.85f);
             }
             else
             {
                 //return to lock picking section
                 stressMeter.lerpFill(0.0f);
             }
+        }
+        */
+
+        //takes distance into account not just holding click
+        if (pulling)
+        {
+            float dist = distance / pullDistance;
+            //Debug.LogFormat("Perctent fill {0}, dist {1}", dist, distance);
+            stressMeter.lerpFill(dist);
+        }
+        else
+        {
+            stressMeter.lerpFill(0.0f);
         }
 
         //increase stress the further you pull + lower maxhealth for stress if theres any uncut roots
