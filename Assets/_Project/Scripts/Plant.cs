@@ -13,7 +13,6 @@ public class Plant : MonoBehaviour
     public Gradient IndicatorColors;
     public GameObject stressMeterObj;
     private Fillamount stressMeter;
-    public float aniamtionCuveItem;
 
     private bool pulling = false;
     
@@ -59,7 +58,7 @@ public class Plant : MonoBehaviour
         for (int i = 0; i < gameObject.transform.childCount; i++)
         {
             GameObject child = gameObject.transform.GetChild(i).gameObject;
-            if (child.GetComponent<ParticleAttraction>())
+            if (child.GetComponent<ParticleGlowRing>())
             {
                 //enabled = true/false; is for components only
                 child.SetActive(true);

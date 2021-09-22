@@ -23,12 +23,13 @@ public class ParticleAttraction : MonoBehaviour
     {
         InitializeIfNeeded();
         parentPlant = gameObject.transform.parent.GetComponent<Plant>();
-        AnimationClip clip = gameObject.transform.parent.GetComponent<Animation>().clip;
-        AnimationClipCurveData[] allCurves = GetAllCurves(clip, true);
-        curve = allCurves[0].curve;
+
+        //AnimationClip clip = gameObject.transform.parent.GetComponent<Animation>().clip;
+        //AnimationClipCurveData[] allCurves = GetAllCurves(clip, true);
+        //curve = allCurves[0].curve;
     }
 
-    //yoinked and edited 8)
+    /*
     public static AnimationClipCurveData[] GetAllCurves(AnimationClip clip, bool includeCurveData)
     {
         EditorCurveBinding[] curveBindings = AnimationUtility.GetCurveBindings(clip);
@@ -43,6 +44,7 @@ public class ParticleAttraction : MonoBehaviour
         }
         return dataArray;
     }
+    */
 
     void InitializeIfNeeded()
     {

@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Timers;
 
 public class Player_pull_script : MonoBehaviour
 {
@@ -24,14 +23,9 @@ public class Player_pull_script : MonoBehaviour
     private bool hold = false;
     private bool pullingOut = false;
 
-
-    private Timer diggingHoleTimer;
     private Vector3 lastPos;
-    public int timerInterval = 250;
     public int lineDurration = 5;
-    public float minDistanceBetweenCalls = 0.5f;
-    //Debug.DrawLine (Vector3.zero, new Vector3 (1, 0, 0), Color.red);
-
+    public float timerInterval = 0.5f;
     private Vector3 startPosition;
 
     void SetPlant(Plant plant)
@@ -60,35 +54,55 @@ public class Player_pull_script : MonoBehaviour
         }
     }
 
+    void OnApplicationQuit()
+    {
+        //running = false;
+        //diggingHoleTimer.Stop();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
         SetPlant(currentPlant);
         if (SoilNeedsLoosened)
         {
-            diggingHoleTimer = new Timer();
-            diggingHoleTimer.Elapsed += new ElapsedEventHandler(onTimer);
-            diggingHoleTimer.Interval = timerInterval;
+            //diggingHoleTimer = new Timer();
+            //diggingHoleTimer.Elapsed += new ElapsedEventHandler(onTimer);
+            //diggingHoleTimer.Interval = timerInterval;
 
             lastPos = gameObject.transform.position;
 
-            diggingHoleTimer.Start();
+            //diggingHoleTimer.Start();
+            StartCoroutine(diggingHoleTimer());
         }
     }
 
-    void onTimer(object source, ElapsedEventArgs e)
+    public IEnumerator diggingHoleTimer()
     {
-        
-        if (lastPos == null || (lastPos- gameObject.transform.position).magnitude < minDistanceBetweenCalls)
+        while (true)
         {
-            return;
+            //Debug.Log("hello?");
+            Vector3 newPos = gameObject.transform.position;
+
+            if (lastPos == null)
+            {
+                lastPos = newPos;
+
+            }
+            else
+            {
+
+                //Debug.Log("timer event");
+
+                //Debug.Log(newPos);
+
+                //do things
+                Debug.DrawLine(lastPos, newPos, Color.red, lineDurration, false);
+                lastPos = newPos;
+            }
+            yield return new WaitForEndOfFrame();
+            //yield return new WaitForSeconds(timerInterval);
         }
-
-        Debug.Log("timer event");
-
-        //do things
-        Debug.DrawLine(lastPos, gameObject.transform.position, Color.red, lineDurration, false);
-        lastPos = gameObject.transform.position;
     }
 
     // Update is called once per frame
@@ -100,9 +114,9 @@ public class Player_pull_script : MonoBehaviour
             {
                 if (!hold && click)
                 {
-                    Debug.Log("holdin");
+                    //Debug.Log("holdin");
                     hold = true;
-                    click = false;
+
                 }
                 else if(!hold)
                 {
@@ -146,7 +160,9 @@ public class Player_pull_script : MonoBehaviour
                     //Debug.Log(rightMost);
 
                     SoilNeedsLoosened = false;
-                    diggingHoleTimer.Stop();
+
+                    StopCoroutine(diggingHoleTimer());
+                    //diggingHoleTimer.Stop();
                     currentPlant.loosenedPlant();
                     pullingOut = true;
                 }

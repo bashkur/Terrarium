@@ -455,38 +455,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 90, y: 180, z: 0}
---- !u!1 &805866395 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3321145228292132770, guid: 1ff9e6d6d49d69446a380448e7562d22, type: 3}
-  m_PrefabInstance: {fileID: 1939826040}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &805866396 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4485005444489272988, guid: 1ff9e6d6d49d69446a380448e7562d22, type: 3}
   m_PrefabInstance: {fileID: 1939826040}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 805866395}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dbb3c69a26f601c4b8a53acf392f34e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!111 &805866401
-Animation:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 805866395}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Animation: {fileID: 7400000, guid: 52522ef485f3c25448778e44b56dfabd, type: 2}
-  m_Animations:
-  - {fileID: 7400000, guid: 52522ef485f3c25448778e44b56dfabd, type: 2}
-  m_WrapMode: 0
-  m_PlayAutomatically: 0
-  m_AnimatePhysics: 0
-  m_CullingType: 0
 --- !u!1 &936523074
 GameObject:
   m_ObjectHideFlags: 0
@@ -541,6 +520,8 @@ MonoBehaviour:
   speed: 50
   currentAngle: 0
   startingAngle: 0
+  lineDurration: 5
+  timerInterval: 500
 --- !u!114 &936523077
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1130,7 +1111,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   StressBar: {fileID: 1490741954}
   HealthCap: {fileID: 596207176}
-  waitTime: 30
   ColorChanger:
     serializedVersion: 2
     key0: {r: 0, g: 1, b: 0.062781096, a: 1}
@@ -1514,6 +1494,10 @@ PrefabInstance:
       propertyPath: EmissionModule.rateOverTime.scalar
       value: 800
       objectReference: {fileID: 0}
+    - target: {fileID: 4485005444489272988, guid: 1ff9e6d6d49d69446a380448e7562d22, type: 3}
+      propertyPath: stressMeterObj
+      value: 
+      objectReference: {fileID: 1490741951}
     - target: {fileID: 4485005444489272988, guid: 1ff9e6d6d49d69446a380448e7562d22, type: 3}
       propertyPath: IndicatorColors.ctime1
       value: 29298
