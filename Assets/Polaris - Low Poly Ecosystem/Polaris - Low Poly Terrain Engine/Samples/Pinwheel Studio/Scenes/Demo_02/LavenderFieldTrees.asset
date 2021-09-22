@@ -1,0 +1,59 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e8fda743b539a043b220ae6e99779c2, type: 3}
+  m_Name: LavenderFieldTrees
+  m_EditorClassIdentifier: 
+  prototypes:
+  - prefab: {fileID: 1409312262755260, guid: 0a4b449c7ce553e4c941c0ee49064a51, type: 3}
+    sharedMesh: {fileID: 4300000, guid: de58b283718058b4c85bb991e8d5a09c, type: 3}
+    sharedMaterials:
+    - {fileID: 2100000, guid: 4da735dab769da044b577f44995d83a6, type: 2}
+    shadowCastingMode: 1
+    receiveShadow: 1
+    billboardShadowCastingMode: 0
+    billboardReceiveShadow: 0
+    layer: 0
+    keepPrefabLayer: 0
+    billboard: {fileID: 0}
+    hasCollider: 1
+    colliderInfo:
+      center: {x: 0.062129974, y: 3.1, z: -0.7003484}
+      radius: 1.3
+      height: 9.06
+      direction: 1
+    pivotOffset: 0
+    baseRotation: {x: 0.70710677, y: 0, z: 0, w: 0.70710677}
+    baseScale: {x: 1, y: 1, z: 1}
+    editor_PrefabAssetPath: Assets/Polaris - Low Poly Ecosystem/Polaris - Low Poly
+      Terrain Engine/Samples/Pinwheel Studio/Prefabs/SpringTree1.prefab
+  - prefab: {fileID: 1806164399594402, guid: f2f4f08f7dc60d042ac98c593f8e32c4, type: 3}
+    sharedMesh: {fileID: 4300006, guid: de58b283718058b4c85bb991e8d5a09c, type: 3}
+    sharedMaterials:
+    - {fileID: 2100000, guid: 6f0e4c3dd6e1bbc45aec4d7514a897d0, type: 2}
+    shadowCastingMode: 1
+    receiveShadow: 1
+    billboardShadowCastingMode: 0
+    billboardReceiveShadow: 0
+    layer: 0
+    keepPrefabLayer: 0
+    billboard: {fileID: 0}
+    hasCollider: 1
+    colliderInfo:
+      center: {x: -0.07514721, y: 4.1556964, z: -0.15244931}
+      radius: 0.48
+      height: 10.83896
+      direction: 1
+    pivotOffset: 0
+    baseRotation: {x: 0.70710677, y: 0, z: 0, w: 0.70710677}
+    baseScale: {x: 1, y: 1, z: 1}
+    editor_PrefabAssetPath: Assets/Polaris - Low Poly Ecosystem/Polaris - Low Poly
+      Terrain Engine/Samples/Pinwheel Studio/Prefabs/AutumnTree3.prefab

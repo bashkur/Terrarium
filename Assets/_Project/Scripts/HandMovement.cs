@@ -52,7 +52,10 @@ public class HandMovement : MonoBehaviour
             mainCamera.transform.LookAt(pos);
             yield return new WaitForEndOfFrame();
         }
+        GameObject T = GameObject.FindGameObjectWithTag("terrain");
+        TerrainScript Tscript = T.GetComponent<TerrainScript>();
+        StartCoroutine(Tscript.makeHole((int)pos.x + 10, (int)pos.z + 6));
 
-        
+
     }
 }
