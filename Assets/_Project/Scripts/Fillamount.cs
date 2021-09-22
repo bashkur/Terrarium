@@ -8,6 +8,10 @@ public class Fillamount : MonoBehaviour
 {
     public Image StressBar;
     public Image HealthCap;
+
+    public GameObject arrowContainer;
+    private GameObject topArrow, bottomArrow;
+
     private bool lerp = false;
     private float newTarget = 0.0f;
     public Gradient ColorChanger;
@@ -21,6 +25,9 @@ public class Fillamount : MonoBehaviour
         overStressed = false;
         StressBar.fillAmount = 0;
         //lerpFill(0.0f);
+
+        topArrow = arrowContainer.transform.GetChild(0).gameObject;
+        bottomArrow = arrowContainer.transform.GetChild(1).gameObject;
     }
 
     public void lerpFill(float newAmmount)

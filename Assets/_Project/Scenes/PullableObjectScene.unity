@@ -256,7 +256,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 336503207}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -323526.94, y: 113.99986, z: -2897.0105}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 136.86736, y: 136.86743, z: 0.23765554}
   m_Children: []
   m_Father: {fileID: 1262609423}
@@ -971,7 +971,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1262609422}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 2897.0112}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1500782080}
@@ -981,7 +981,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 323443.12, y: -0.0003453269}
+  m_AnchoredPosition: {x: -85, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1336705100
@@ -1229,6 +1229,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   StressBar: {fileID: 1490741954}
   HealthCap: {fileID: 596207176}
+  arrowContainer: {fileID: 1262609422}
   ColorChanger:
     serializedVersion: 2
     key0: {r: 0, g: 1, b: 0.062781096, a: 1}
@@ -1321,7 +1322,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1500782079}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -323526.94, y: 113.99986, z: -2897.0105}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 136.86736, y: 136.86743, z: 0.23765554}
   m_Children: []
   m_Father: {fileID: 1262609423}
