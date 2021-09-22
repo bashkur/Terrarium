@@ -520,8 +520,8 @@ MonoBehaviour:
   speed: 50
   currentAngle: 0
   startingAngle: 0
-  lineDurration: 5
-  timerInterval: 500
+  distance: 0.05
+  distFromPlantToDraw: 1
 --- !u!114 &936523077
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1072,7 +1072,7 @@ GameObject:
   - component: {fileID: 1490741954}
   - component: {fileID: 1490741953}
   m_Layer: 0
-  m_Name: Backgroundfill
+  m_Name: StressMeter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1478,22 +1478,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3383609261328942323, guid: 1ff9e6d6d49d69446a380448e7562d22, type: 3}
-      propertyPath: prewarm
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3383609261328942323, guid: 1ff9e6d6d49d69446a380448e7562d22, type: 3}
-      propertyPath: ringBufferMode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3383609261328942323, guid: 1ff9e6d6d49d69446a380448e7562d22, type: 3}
-      propertyPath: ShapeModule.enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3383609261328942323, guid: 1ff9e6d6d49d69446a380448e7562d22, type: 3}
-      propertyPath: EmissionModule.rateOverTime.scalar
-      value: 800
-      objectReference: {fileID: 0}
     - target: {fileID: 4485005444489272988, guid: 1ff9e6d6d49d69446a380448e7562d22, type: 3}
       propertyPath: stressMeterObj
       value: 
@@ -1558,7 +1542,8 @@ PrefabInstance:
       propertyPath: attractedTo
       value: 
       objectReference: {fileID: 936523074}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4685933704866223494, guid: 1ff9e6d6d49d69446a380448e7562d22, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 1ff9e6d6d49d69446a380448e7562d22, type: 3}
 --- !u!1 &1948844875
 GameObject:
@@ -1668,3 +1653,71 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0fec3482a39362409ef3cc5ceff8ba0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &2079106629 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1707317966466606705, guid: 1ff9e6d6d49d69446a380448e7562d22, type: 3}
+  m_PrefabInstance: {fileID: 1939826040}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2079106631
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2079106629}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4c486fef973e4441801d7639c37a76a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  curve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 360
+      inSlope: 144.0951
+      outSlope: 144.0951
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.96872085
+    - serializedVersion: 3
+      time: 0.13400559
+      value: 64.51715
+      inSlope: -467.45078
+      outSlope: -467.45078
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.17033179
+    - serializedVersion: 3
+      time: 0.49020615
+      value: 17.868416
+      inSlope: -65.82704
+      outSlope: -65.82704
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.18976738
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.79159665
+      value: 7.5652504
+      inSlope: -118.43568
+      outSlope: -118.43568
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.091036454
+      outWeight: 0.28819433
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: -36.301003
+      outSlope: -36.301003
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4

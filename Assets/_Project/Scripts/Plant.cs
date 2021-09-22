@@ -68,7 +68,7 @@ public class Plant : MonoBehaviour
 
     public void isPulling(bool isPull)
     {
-        bool oldValue = isPull;
+        bool oldValue = isPull;;
 
         pulling = isPull;
 
