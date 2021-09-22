@@ -69,11 +69,11 @@ public class ParticleGlowRing : MonoBehaviour
         int numParticlesAlive = circleIndicator.GetParticles(particles);
 
         float newSize = 0.0001f;
-        //((parentPlant.getCurrentDifference()) / 360.0f) = (0.0f, 1.0f]
-        //newSize = (1-(parentPlant.getCurrentDifference() / 360.0f)) * (0.2f - 0.0001f) + 0.0001f;
-        newSize = curve.Evaluate(((parentPlant.getCurrentDifference() / 360.0f))) / 360.0f * (0.2f - 0.0001f) + 0.0001f;
+        //((parentPlant.angleDifference / 360.0f) = (0.0f, 1.0f]
+        //newSize = (1-(parentPlant.angleDifference / 360.0f)) * (0.2f - 0.0001f) + 0.0001f;
+        newSize = curve.Evaluate(((parentPlant.angleDifference / 360.0f))) / 360.0f * (0.2f - 0.0001f) + 0.0001f;
 
-        Color newColor = parentPlant.IndicatorColors.Evaluate(1 - (parentPlant.getCurrentDifference() / 360.0f));
+        Color newColor = parentPlant.IndicatorColors.Evaluate(1 - (parentPlant.angleDifference / 360.0f));
 
         for (int i = 0; i < numParticlesAlive; i++)
         {

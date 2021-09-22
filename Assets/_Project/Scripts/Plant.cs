@@ -5,13 +5,13 @@ public class Plant : MonoBehaviour
 {
 
     //the part of the circle around the plant the player need to pull in
-    public float pullAngle = 0;
-    public float playerLoation;
-    public float angleDifference;
-    public Vector3 playerStartPosition;
+    public float pullAngle { get; set; }
+    public float playerLoation { get; set; }
+    public float angleDifference { get; set; }
+    public Vector3 playerStartPosition { get; set; }
     public GameObject debugArrow;
-    public Vector3 projectOnto;
-    public float pullDistance = 100.0f;
+    public Vector3 projectOnto { get; set; }
+    public float pullDistance;
 
     public Gradient IndicatorColors;
     public GameObject stressMeterObj;
@@ -19,24 +19,9 @@ public class Plant : MonoBehaviour
 
     private bool pulling;
 
-    //public event EventHandler stressChangedEvent;
-
-    //for circle:
-    /*
-     * easy way is to have a thin circle around the plant w/ a point on it indicating hand direction
-     * then have a hidden second circle that thickens to a point that we rotate so that the thickest
-     * point is at the pullAngle and then hide it
-     * we only reveal and part of it near player indicator
-     * 
-     * only issue is if we want to reuse this for say roots.... then we would have a variable number of 
-     * bulges inidcating areas of interest... 
-     * 
-     * first things first get a circle + mouse indicator
-     */
-
-    public float getCurrentDifference()
+    public void updatePullAngle()
     {
-        return angleDifference;
+        pullAngle = UnityEngine.Random.Range(0.0f, 360.0f);
     }
 
     public void UpdatePlayerLoation(float currentAngle)
@@ -121,7 +106,7 @@ public class Plant : MonoBehaviour
         Quaternion rotation = Quaternion.LookRotation(Vector3.forward, Vector3.up);
         debugArrow.transform.rotation = rotation;
 
-        pullAngle = UnityEngine.Random.Range(0.0f, 360.0f);
+        updatePullAngle();
         pulling = false;
 
         projectOnto = Quaternion.AngleAxis(pullAngle, Vector3.up) * Vector3.forward;

@@ -6,7 +6,7 @@ public class Player_pull_script : MonoBehaviour
 {
 
     public Plant currentPlant;
-    public float speed = 50.0f;
+    public float rotationSpeed = 50.0f;
 
     private float distanceFromPlant;
     private Vector3 trowelStartLocation;
@@ -14,10 +14,10 @@ public class Player_pull_script : MonoBehaviour
     private bool SoilNeedsLoosened = true;
 
     //makes sure player actually covers all 360 degrees of the plant even if they backtrack
-    private float leftMost = 0;
-    private float rightMost = 0;
-    public float currentAngle = 0;
-    public float startingAngle = 0;
+    private float leftMost { get; set; }
+    private float rightMost { get; set; }
+    public float currentAngle { get; set; }
+    public float startingAngle { get; set; }
 
     private bool click = false;
     private bool hold = false;
@@ -26,7 +26,7 @@ public class Player_pull_script : MonoBehaviour
     private Vector3 lastPos;
     //public int lineDurration = 10000;
     //public float timerInterval = 0.05f;
-    public float distance = 0.5f;
+    public float travelDistanceDraw = 0.5f;
     private Vector3 startPosition;
     public float distFromPlantToDraw = 1.0f;
 
@@ -91,7 +91,7 @@ public class Player_pull_script : MonoBehaviour
 
             float dist = (lastPos - newPos).magnitude;
 
-            if (dist >= distance)
+            if (dist >= travelDistanceDraw)
             {
                 Debug.DrawLine(lastPos + directional, newPos + directional, Color.red, 5, false);
                 lastPos = newPos;
@@ -130,8 +130,8 @@ public class Player_pull_script : MonoBehaviour
             if (Input.GetButton("Counterclockwise"))
             {
                 //Debug.Log("ccw");
-                gameObject.transform.RotateAround(currentPlant.transform.position, Vector3.up, -speed * Time.deltaTime);
-                currentAngle -= speed * Time.deltaTime;
+                gameObject.transform.RotateAround(currentPlant.transform.position, Vector3.up, -rotationSpeed * Time.deltaTime);
+                currentAngle -= rotationSpeed * Time.deltaTime;
                 if (currentAngle < leftMost)
                     leftMost = currentAngle;
             }
@@ -140,8 +140,8 @@ public class Player_pull_script : MonoBehaviour
             if (Input.GetButton("Clockwise"))
             {
                 //Debug.Log("cw");
-                gameObject.transform.RotateAround(currentPlant.transform.position, Vector3.up, speed * Time.deltaTime);
-                currentAngle += speed * Time.deltaTime;
+                gameObject.transform.RotateAround(currentPlant.transform.position, Vector3.up, rotationSpeed * Time.deltaTime);
+                currentAngle += rotationSpeed * Time.deltaTime;
                 if (currentAngle > rightMost)
                     rightMost = currentAngle;
             }

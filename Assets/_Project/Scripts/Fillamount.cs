@@ -11,13 +11,14 @@ public class Fillamount : MonoBehaviour
     private bool lerp = false;
     private float newTarget = 0.0f;
     public Gradient ColorChanger;
-    public bool overStressed = false;
+    public bool overStressed { get; set; }
     private bool positiveDirection = true;
 
     //public event EventHandler stressChangedEvent;
 
     void Start()
     {
+        overStressed = false;
         StressBar.fillAmount = 0;
         //lerpFill(0.0f);
     }
