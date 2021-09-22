@@ -15,10 +15,12 @@ public class Fillamount : MonoBehaviour
     void Start()
     {
         StressBar.fillAmount = 0;
+        lerpFill(0.0f);
     }
 
      public void lerpFill(float newAmmount)
      {
+        Debug.Log("lerp");
         lerp = true;
         newTarget = newAmmount;
      }

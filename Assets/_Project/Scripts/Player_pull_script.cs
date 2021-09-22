@@ -24,9 +24,11 @@ public class Player_pull_script : MonoBehaviour
     private bool pullingOut = false;
 
     private Vector3 lastPos;
-    public int lineDurration = 5;
-    public float timerInterval = 0.5f;
+    //public int lineDurration = 10000;
+    //public float timerInterval = 0.05f;
+    public float distance = 0.5f;
     private Vector3 startPosition;
+    public float distFromPlantToDraw = 1.0f;
 
     void SetPlant(Plant plant)
     {
@@ -79,25 +81,17 @@ public class Player_pull_script : MonoBehaviour
 
     public IEnumerator diggingHoleTimer()
     {
-        while (true)
+        while (SoilNeedsLoosened)
         {
             //Debug.Log("hello?");
             Vector3 newPos = gameObject.transform.position;
+            Vector3 directional = (currentPlant.transform.position - gameObject.transform.position).normalized * distFromPlantToDraw;
 
-            if (lastPos == null)
+            float dist = (lastPos - newPos).magnitude;
+
+            if (dist >= distance)
             {
-                lastPos = newPos;
-
-            }
-            else
-            {
-
-                //Debug.Log("timer event");
-
-                //Debug.Log(newPos);
-
-                //do things
-                Debug.DrawLine(lastPos, newPos, Color.red, lineDurration, false);
+                Debug.DrawLine(lastPos + directional, newPos + directional, Color.red, 5, false);
                 lastPos = newPos;
             }
             yield return new WaitForEndOfFrame();
@@ -162,7 +156,7 @@ public class Player_pull_script : MonoBehaviour
                     SoilNeedsLoosened = false;
 
                     StopCoroutine(diggingHoleTimer());
-                    //diggingHoleTimer.Stop();
+
                     currentPlant.loosenedPlant();
                     pullingOut = true;
                 }
