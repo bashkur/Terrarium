@@ -1452,6 +1452,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4485005444489272988, guid: 1ff9e6d6d49d69446a380448e7562d22, type: 3}
+      propertyPath: pullTime
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4485005444489272988, guid: 1ff9e6d6d49d69446a380448e7562d22, type: 3}
       propertyPath: stressMeter
       value: 
       objectReference: {fileID: 1490741953}

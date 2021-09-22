@@ -31,6 +31,7 @@ public class Player_pull_script : MonoBehaviour
     public float distFromPlantToDraw = 1.0f;
 
     private Vector3 mouseStartPos;
+    private float oldDistance = 0.0f;
 
     void SetPlant(Plant plant)
     {
@@ -189,6 +190,7 @@ public class Player_pull_script : MonoBehaviour
                 //Debug.Log("player pull!");
                 //send command to plant!
                 currentPlant.isPulling(hold, distanceAway);
+                oldDistance = distanceAway;
             }
         }
     }
