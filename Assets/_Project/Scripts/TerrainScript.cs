@@ -14,7 +14,7 @@ public class TerrainScript : MonoBehaviour
         pSys.Stop();
         _terraindata = new TerrainData();
        
-        _terraindata.SetDetailResolution(66, 66);
+        _terraindata.SetDetailResolution(512, 66);
         GameObject terrain = Terrain.CreateTerrainGameObject(_terraindata);
         Terrain T = terrain.transform.GetComponent<Terrain>();
         T.materialTemplate = mat;
