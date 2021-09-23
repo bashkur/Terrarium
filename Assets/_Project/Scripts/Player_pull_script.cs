@@ -36,7 +36,6 @@ public class Player_pull_script : MonoBehaviour
     public float jitterMult = 2.0f;
 
     private HandMovement ericScript;
-    //private Rigidbody body;
 
     float calcAngle(GameObject objectOrbitting)
     {
@@ -61,27 +60,17 @@ public class Player_pull_script : MonoBehaviour
         if (plant)
         {
             distanceFromPlant = (gameObject.transform.position - currentPlant.transform.position).magnitude;
-            //currentPlant.stressMeter.HealthCap.fillAmount = currentPlant.diffiulty;
-            //currentPlant.updatePullAngle();
+
         }
         if (SoilNeedsLoosened)
         {
             startPosition = transform.position;
             currentPlant.playerStartPosition = startPosition;
             currentAngle = 0;
-            //Vector3 dir = (plant.gameObject.transform.position - gameObject.transform.position).normalized;
-            //find angle = dot
-            //startingAngle = Mathf.Acos(Vector3.Dot(dir, plant.transform.forward));
 
             startingAngle = calcAngle(plant.gameObject);
             //Debug.Log(startingAngle);
         }
-    }
-
-    void OnApplicationQuit()
-    {
-        //running = false;
-        //diggingHoleTimer.Stop();
     }
 
     // Start is called before the first frame update
@@ -95,13 +84,7 @@ public class Player_pull_script : MonoBehaviour
         if (SoilNeedsLoosened)
         {
             ericScript.enabled = false;
-            //diggingHoleTimer = new Timer();
-            //diggingHoleTimer.Elapsed += new ElapsedEventHandler(onTimer);
-            //diggingHoleTimer.Interval = timerInterval;
-
             lastPos = gameObject.transform.position;
-
-            //diggingHoleTimer.Start();
             StartCoroutine(diggingHoleTimer());
         }
     }
@@ -139,7 +122,6 @@ public class Player_pull_script : MonoBehaviour
                     hold = true;
                     mouseStartPos = Input.mousePosition;
                     //mouseStartPos = gameObject.transform.position;
-
                 }
                 else if(!hold)
                 {
@@ -154,6 +136,7 @@ public class Player_pull_script : MonoBehaviour
 
             if (Input.GetButtonUp("Fire2"))
             {
+                //resets position if hand gets too far away
                 Vector3 dir = (gameObject.transform.position - currentPlant.transform.position).normalized;
                 gameObject.transform.position = currentPlant.transform.position + dir * distanceFromPlant;
             }
@@ -202,7 +185,7 @@ public class Player_pull_script : MonoBehaviour
 
                     StopCoroutine(diggingHoleTimer());
 
-                    currentPlant.loosenedPlant();
+                    currentPlant.turnOnParticleEffectRing();
                     pullingOut = true;
 
                     ericScript.enabled = true;

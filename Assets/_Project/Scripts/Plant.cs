@@ -72,17 +72,20 @@ public class Plant : MonoBehaviour
         //debugArrow.transform.rotation = rotation;
     }
 
-    public void loosenedPlant()
+    public void turnOnParticleEffectRing(bool setVal = true)
     {
         //called to transition to next step in freeing the plant!
         //GetComponentInChildren
+
+        debugArrow.SetActive(setVal);
+
         for (int i = 0; i < gameObject.transform.childCount; i++)
         {
             GameObject child = gameObject.transform.GetChild(i).gameObject;
             if (child.GetComponent<ParticleGlowRing>())
             {
                 //enabled = true/false; is for components only
-                child.SetActive(true);
+                child.SetActive(setVal);
             }
         }
     }
@@ -156,6 +159,7 @@ public class Plant : MonoBehaviour
                     {
                         donePulling = true;
                         pulling = false;
+                        turnOnParticleEffectRing(false);
                         Debug.Log("done pulling");
                     }
                 }

@@ -13,7 +13,15 @@ public class HandMovement : MonoBehaviour
 
     private Camera mainCamera;
     private bool movingCamera = false;
-    
+    public float maxZoom;
+    public float defaultZoom;
+
+    public void DollyZoom(float amount, GameObject location)
+    {
+        //Camera.main.fieldOfView +- 2
+        //orthographicSize
+    }
+
     public void updateVisibility(bool childVisibleUpdate)
     {
         //this is called by child to update varriable instead of every frame...
