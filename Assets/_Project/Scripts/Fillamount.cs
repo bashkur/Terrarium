@@ -9,44 +9,52 @@ public class Fillamount : MonoBehaviour
     public Image StressBar;
     public Image HealthCap;
 
-    public GameObject arrowContainer;
-    public GameObject topArrow { get; set; }
-    public GameObject bottomArrow { get; set; }
+    public GameObject topArrow;
+    public GameObject bottomArrow;
 
     private bool lerp = false;
     private float newTarget = 0.0f;
     public Gradient ColorChanger;
     public bool overStressed { get; set; }
     private bool positiveDirection = true;
-    private float arrow_y1 = 0.0f, arrow_y2 = 0.0f;
-
-    //public event EventHandler stressChangedEvent;
+    private float height;
 
     void Start()
     {
         overStressed = false;
         StressBar.fillAmount = 0;
         //lerpFill(0.0f);
-
-        topArrow = arrowContainer.transform.GetChild(0).gameObject;
-        bottomArrow = arrowContainer.transform.GetChild(1).gameObject;
-        setArrowPosition(arrow_y1, arrow_y2);
+        if (height <= 0)
+        {
+            height = StressBar.gameObject.transform.GetComponent<RectTransform>().rect.height;
+            Debug.Log(height);
+        }
     }
 
-    public void setArrowPosition(float y1, float y2)
+    public void setArrowPosition(float target, float tolerance)
     {
-        arrow_y1 = y1 * (272 + 172) - 172;
-        arrow_y2 = y2 * (272 + 172) - 172;
+        //float y1 = (target - tolerance) * (211 + 205) - 205;
+        //float y2 = (target + tolerance) * (211 + 205) - 205;
 
-        //-172 -> 272
-        if (topArrow)
+        if (height <= 0)
         {
-            topArrow.transform.position = new Vector3(0, y1, 0);
+            height = StressBar.gameObject.transform.GetComponent<RectTransform>().rect.height;
         }
-        if (bottomArrow)
-        {
-            bottomArrow.transform.position = new Vector3(0, y2, 0);
-        }
+        
+        float y1 = Mathf.Max((target + tolerance) * height, 0);
+        float y2 = Mathf.Max((target - tolerance) * height, 0);
+
+        //Debug.LogFormat("{0}, and {1}", y1, y2);
+
+        //-205 -> 211
+        RectTransform temp = topArrow.GetComponent<RectTransform>();
+        temp.localPosition = new Vector3(temp.localPosition.x, y1, 0);
+
+        temp = bottomArrow.GetComponent<RectTransform>();
+        temp.localPosition = new Vector3(temp.localPosition.x, y2, 0);
+
+        //topArrow.transform.position = new Vector3(topArrow.transform.position.x, y1, 0);
+        //bottomArrow.transform.position = new Vector3(topArrow.transform.position.x, y2, 0);        
     }
 
     public void lerpFill(float newAmmount)

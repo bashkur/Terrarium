@@ -23,6 +23,7 @@ public class Plant : MonoBehaviour
     public float diffiulty = 0.2f;
     public float numToComplete = 3;
     public Fillamount stressMeter;
+    public float minPull = 0.1f;
 
     private bool pulling;
     private bool donePulling;
@@ -35,10 +36,12 @@ public class Plant : MonoBehaviour
         //also generates a random pullWeight
         pullAngle = UnityEngine.Random.Range(0.0f, 360.0f);
         stressMeter.HealthCap.fillAmount = diffiulty;
-        pullWeight = UnityEngine.Random.Range(0.0f, 1.0f - diffiulty);
+        pullWeight = UnityEngine.Random.Range(minPull, 1.0f - diffiulty);
 
         //y = pullWeight +- pullTolerance
-        stressMeter.setArrowPosition(pullWeight + pullTolerance, pullWeight - pullTolerance);
+        //Debug.LogFormat("{0} + {1} = {2}, {0} - {1} = {3}", pullWeight, pullTolerance, pullWeight + pullTolerance, pullWeight - pullTolerance);
+        stressMeter.setArrowPosition(pullWeight, pullTolerance);
+        UpdatePlayerLoation(playerLoation);
     }
 
     public void UpdatePlayerLoation(float currentAngle)
@@ -119,7 +122,7 @@ public class Plant : MonoBehaviour
             //Debug.Log("Plant a plant! :)");
         }
 
-        if (!donePulling && pulling)
+        if (!donePulling && pulling && numToComplete > 0)
         {
             if (Mathf.Abs(stressMeter.StressBar.fillAmount - pullWeight) <= pullTolerance)
             {
@@ -137,6 +140,7 @@ public class Plant : MonoBehaviour
                     {
                         donePulling = true;
                         pulling = false;
+                        Debug.Log("done pulling");
                     }
                 }
             }
