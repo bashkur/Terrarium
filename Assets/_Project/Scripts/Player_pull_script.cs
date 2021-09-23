@@ -24,8 +24,6 @@ public class Player_pull_script : MonoBehaviour
     private bool pullingOut = false;
 
     private Vector3 lastPos;
-    //public int lineDurration = 10000;
-    //public float timerInterval = 0.05f;
     public float travelDistanceDraw = 0.5f;
     private Vector3 startPosition;
     public float distFromPlantToDraw = 1.0f;
@@ -34,10 +32,11 @@ public class Player_pull_script : MonoBehaviour
     private float oldDistance = 0.0f;
     public float timeInPlace { get; set; }
     public float standstillTolerance = 0.5f;
-    //public AnimationCurve pullJitterAmount;
-    //public float jitterMult = 2.0f;
+    public AnimationCurve pullJitterAmount;
+    public float jitterMult = 2.0f;
 
     private HandMovement ericScript;
+    //private Rigidbody body;
 
     float calcAngle(GameObject objectOrbitting)
     {
@@ -75,8 +74,7 @@ public class Player_pull_script : MonoBehaviour
             //startingAngle = Mathf.Acos(Vector3.Dot(dir, plant.transform.forward));
 
             startingAngle = calcAngle(plant.gameObject);
-            //startingAngle -= 90;
-            Debug.Log(startingAngle);
+            //Debug.Log(startingAngle);
         }
     }
 
@@ -89,6 +87,7 @@ public class Player_pull_script : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //body = GetComponent<Rigidbody>();
         ericScript = gameObject.GetComponent<HandMovement>();
         ericScript.enabled = true;
 
@@ -139,6 +138,7 @@ public class Player_pull_script : MonoBehaviour
                     //Debug.Log("holdin");
                     hold = true;
                     mouseStartPos = Input.mousePosition;
+                    //mouseStartPos = gameObject.transform.position;
 
                 }
                 else if(!hold)
@@ -150,6 +150,12 @@ public class Player_pull_script : MonoBehaviour
             {
                 click = false;
                 hold = false;
+            }
+
+            if (Input.GetButtonUp("Fire2"))
+            {
+                Vector3 dir = (gameObject.transform.position - currentPlant.transform.position).normalized;
+                gameObject.transform.position = currentPlant.transform.position + dir * distanceFromPlant;
             }
 
             //getButton does press + held, getButtonDown only goes off once when it was firt pressed
@@ -175,7 +181,7 @@ public class Player_pull_script : MonoBehaviour
             if (ericScript.enabled == true)
             {
                 currentAngle = calcAngle(currentPlant.gameObject);
-                Debug.Log(currentAngle);
+                //Debug.Log(currentAngle);
 
                 currentPlant.UpdatePlayerLoation((currentAngle));
             }
@@ -205,26 +211,23 @@ public class Player_pull_script : MonoBehaviour
 
             if (pullingOut)
             {
-                //Input.mousePosition
-
-                //not just raw distance.. we want distance from plant?
-                //project line (mousepos - oldmousepos) onto the line that comes off the plant @ its given angle
-                //start w/ Vector3.forward for the plant, rotate about y axis by the degrees given
-
                 float distanceAway = 0;
                 Vector3 projectOnto = currentPlant.projectOnto.normalized;
-                Vector3 mouse = Input.mousePosition - mouseStartPos;
+                //Vector3 mouse = Input.mousePosition - mouseStartPos;
+                Vector3 mouse = gameObject.transform.position - currentPlant.transform.position;
 
                 if (hold)
                 {
-                    //Debug.Log("yo");
-                    distanceAway = Vector3.Project(mouse, projectOnto).magnitude;
+                    //distanceAway = Vector3.Project(mouse, projectOnto).magnitude;
+                    distanceAway = mouse.magnitude;
                 }
 
-                if (Mathf.Abs(oldDistance - distanceAway) <= standstillTolerance)
+                if (hold && Mathf.Abs(oldDistance - distanceAway) <= standstillTolerance)
                 {
                     timeInPlace += Time.deltaTime;
-                    /*
+
+                    timeInPlace %= pullJitterAmount[pullJitterAmount.length - 1].time;
+
                     float offput = jitterMult * pullJitterAmount.Evaluate(timeInPlace) / pullJitterAmount[pullJitterAmount.length - 1].value;
                     
                     Vector3 tangent;
@@ -238,12 +241,10 @@ public class Player_pull_script : MonoBehaviour
                     {
                         tangent = t2;
                     }
-                    float mouseDist = mouse.magnitude;
-                    mouse += tangent * offput;
-                    mouse = mouse.normalized * mouseDist;
-                    distanceAway = Vector3.Project(mouse, projectOnto).magnitude;
-                    */
-                    
+                    //body.AddForce(tangent * offput);
+
+                    gameObject.transform.position += tangent * offput * Time.deltaTime;
+
                 }
                 else
                 {
@@ -253,7 +254,7 @@ public class Player_pull_script : MonoBehaviour
                 }
 
                 
-                Debug.Log(distanceAway);
+                //Debug.Log(distanceAway);
 
                 //Debug.Log("player pull!");
                 //send command to plant!

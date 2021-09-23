@@ -9,6 +9,7 @@ public class Plant : MonoBehaviour
     public float pullWeight { get; set; }
     public float playerLoation { get; set; }
     public float angleDifference { get; set; }
+    public float angleDifferenceWeight;
     public Vector3 playerStartPosition { get; set; }
     public GameObject debugArrow;
     public Vector3 projectOnto { get; set; }
@@ -99,6 +100,8 @@ public class Plant : MonoBehaviour
             
             float dist = distance / pullDistance;
             //Debug.LogFormat("Perctent fill {0}, dist {1}", dist, distance);
+
+            dist *= angleDifference/angleDifferenceWeight;
 
             stressMeter.lerpFill(dist);
         }
