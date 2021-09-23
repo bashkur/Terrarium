@@ -36,6 +36,9 @@ public class Plant : MonoBehaviour
         pullAngle = UnityEngine.Random.Range(0.0f, 360.0f);
         stressMeter.HealthCap.fillAmount = diffiulty;
         pullWeight = UnityEngine.Random.Range(0.0f, 1.0f - diffiulty);
+
+        //y = pullWeight +- pullTolerance
+        stressMeter.setArrowPosition(pullWeight + pullTolerance, pullWeight - pullTolerance);
     }
 
     public void UpdatePlayerLoation(float currentAngle)

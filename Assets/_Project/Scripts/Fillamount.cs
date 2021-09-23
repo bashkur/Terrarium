@@ -10,13 +10,15 @@ public class Fillamount : MonoBehaviour
     public Image HealthCap;
 
     public GameObject arrowContainer;
-    private GameObject topArrow, bottomArrow;
+    public GameObject topArrow { get; set; }
+    public GameObject bottomArrow { get; set; }
 
     private bool lerp = false;
     private float newTarget = 0.0f;
     public Gradient ColorChanger;
     public bool overStressed { get; set; }
     private bool positiveDirection = true;
+    private float arrow_y1 = 0.0f, arrow_y2 = 0.0f;
 
     //public event EventHandler stressChangedEvent;
 
@@ -28,6 +30,23 @@ public class Fillamount : MonoBehaviour
 
         topArrow = arrowContainer.transform.GetChild(0).gameObject;
         bottomArrow = arrowContainer.transform.GetChild(1).gameObject;
+        setArrowPosition(arrow_y1, arrow_y2);
+    }
+
+    public void setArrowPosition(float y1, float y2)
+    {
+        arrow_y1 = y1 * (272 + 172) - 172;
+        arrow_y2 = y2 * (272 + 172) - 172;
+
+        //-172 -> 272
+        if (topArrow)
+        {
+            topArrow.transform.position = new Vector3(0, y1, 0);
+        }
+        if (bottomArrow)
+        {
+            bottomArrow.transform.position = new Vector3(0, y2, 0);
+        }
     }
 
     public void lerpFill(float newAmmount)
