@@ -32,6 +32,10 @@ public class Player_pull_script : MonoBehaviour
 
     private Vector3 mouseStartPos;
     private float oldDistance = 0.0f;
+    public float timeInPlace { get; set; }
+    public float standstillTolerance = 0.5f;
+    //public AnimationCurve pullJitterAmount;
+    //public float jitterMult = 2.0f;
 
     void SetPlant(Plant plant)
     {
@@ -177,15 +181,48 @@ public class Player_pull_script : MonoBehaviour
                 //start w/ Vector3.forward for the plant, rotate about y axis by the degrees given
 
                 float distanceAway = 0;
+                Vector3 projectOnto = currentPlant.projectOnto.normalized;
+                Vector3 mouse = Input.mousePosition - mouseStartPos;
 
                 if (hold)
                 {
-                    Vector3 projectOnto = currentPlant.projectOnto.normalized;
-                    Vector3 mouse = Input.mousePosition - mouseStartPos;
+                    //Debug.Log("yo");
                     distanceAway = Vector3.Project(mouse, projectOnto).magnitude;
                 }
 
-                //Debug.Log(distanceAway);
+                if (Mathf.Abs(oldDistance - distanceAway) <= standstillTolerance)
+                {
+                    timeInPlace += Time.deltaTime;
+                    /*
+                    float offput = jitterMult * pullJitterAmount.Evaluate(timeInPlace) / pullJitterAmount[pullJitterAmount.length - 1].value;
+                    
+                    Vector3 tangent;
+                    Vector3 t1 = Vector3.Cross(projectOnto, currentPlant.transform.forward);
+                    Vector3 t2 = Vector3.Cross(projectOnto, currentPlant.transform.up);
+                    if (t1.magnitude > t2.magnitude)
+                    {
+                        tangent = t1;
+                    }
+                    else
+                    {
+                        tangent = t2;
+                    }
+                    float mouseDist = mouse.magnitude;
+                    mouse += tangent * offput;
+                    mouse = mouse.normalized * mouseDist;
+                    distanceAway = Vector3.Project(mouse, projectOnto).magnitude;
+                    */
+                    
+                }
+                else
+                {
+                    //timeInPlace = 0.0f;
+                    timeInPlace -= Time.deltaTime;
+                    timeInPlace = Mathf.Max(timeInPlace, 0.0f);
+                }
+
+                
+                Debug.Log(distanceAway);
 
                 //Debug.Log("player pull!");
                 //send command to plant!

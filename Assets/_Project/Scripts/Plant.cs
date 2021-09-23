@@ -20,10 +20,12 @@ public class Plant : MonoBehaviour
     public float currentPullTime { get; set; }
     public float pullTime = 1.0f;
     public float pullTolerance = 0.2f;
-    public float diffiulty = 0.2f;
+    private float diffiulty = 0.2f;
+    public AnimationCurve difficultyCurve;
     public float numToComplete = 3;
     public Fillamount stressMeter;
     public float minPull = 0.1f;
+    
 
     private bool pulling;
     private bool donePulling;
@@ -32,6 +34,7 @@ public class Plant : MonoBehaviour
 
     public void updatePullAngle()
     {
+        diffiulty = difficultyCurve.Evaluate(numToComplete);
         //Debug.Log("setup");
         //also generates a random pullWeight
         pullAngle = UnityEngine.Random.Range(0.0f, 360.0f);
@@ -84,9 +87,11 @@ public class Plant : MonoBehaviour
         //takes distance into account not just holding click
         if (pulling)
         {
+            //Debug.Log("pulln");
             
             float dist = distance / pullDistance;
             //Debug.LogFormat("Perctent fill {0}, dist {1}", dist, distance);
+
             stressMeter.lerpFill(dist);
         }
         else
