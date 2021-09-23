@@ -1,0 +1,208 @@
+V2020.2.15
+FIXES
+- Minor script compilation fix.
+
+===
+V2020.2.14
+FIXES
+- Disable foliage rendering in prefab view.
+
+===
+V2020.2.13
+FIXES
+- Fix an assembly definition issue that prevent build from completing.
+
+===
+V2020.2.12
+FIXES
+- Setup some assembly definitions, support newer version of MicroSplat and Vegetation Studio Pro
+CHANGES
+- Minimum Unity version is now 2019.4
+
+===
+V2020.2.11
+FIXES
+- Fix foliage snapping layer mask issue.
+
+===
+V2020.2.10
+IMPROVEMENTS
+- Prevent creating terrain textures (Albedo, Metallic, Splat Controls, Mask) if not needed. 
+FIXES
+- Fix terrain mesh get embedded/serialized with the scene asset in Geometry.GenerateOnEnable mode.
+- Fix Texture Stamper mask bug at steep angle.
+
+V2020.2.9
+IMPROVEMENTS
+- Adding support for Unity 2021.
+FIXES
+- Fix URP shader import & upgrade on Unity 2021.
+
+===
+V2020.2.8
+FIXES
+- Fix some native array bugs with runtime generation.
+- Minor bug fixing.
+
+===
+V2020.2.7
+FIXES
+- Fix height map bug after changing its resolution.
+
+===
+V2020.2.6
+IMPROVEMENTS
+- Adding support for VSP splat map generation. (requires VSP Integration module v1.1)
+
+===
+V2020.2.5
+NEW FEATURES
+- Adding Smooth Normal option. Mask G channel now reserved for Flat/Smooth shading mixing.
+IMPROVEMENTS
+- Adding some info on Mask channel usage.
+- Editor improvements.
+FIXES
+- Remove warnings from sample models.
+- Minor Billboard Creator bug fix.
+
+===
+V2020.2.4
+IMPROVEMENTS
+- Improve MicroSplat Integration, adding support for multi-terrain workflow.
+FIXES
+- Minor bugs fixes.
+
+===
+V2020.2.3
+IMPROVEMENTS
+- Refine Unity terrain data import/convert pipeline.
+- Adding multi-selection mode for splat painter.
+FIXES
+- Fix Spline position/rotation bug.
+
+===
+V2020.2.2
+IMPROVEMENTS
+- Refine Unity terrain data import/convert pipeline.
+
+===
+V2020.2.1
+IMPROVEMENTS
+- Handle spline editing when Alt key is pressed.
+FIXES
+- Fix Spline Path Painter bug.
+
+===
+V2020.2.0
+NEW FEATURES
+- Topographic View: have a better sense of terrain height at different location with hue band.
+IMPROVEMENTS
+- Remove some unused scripts.
+- Optimize Tree Renderer, reduce GC for billboard images.
+- Better Tree & Grass culling.
+- Adding Copy Tag option for Tree Collider, reduce GC.
+- Better blending for Spline Path Painter.
+- Foliage & Object Painter now accept all custom Spawn Filter types.
+- Clean up terrain data on terrain disable.
+FIXES
+- Minor fix for height import, clamp height value in Encode function.
+- Fix geometry generation broke after scene reloading (sub-division map)
+
+===
+V2020.1.5
+FIXES
+- Fix Interactive Grass bug.
+- Editing Pivot Offset, Base Scale and Base Rotation of the Tree Prototype Group take effect immediately in the editor.
+- Fix foliage get rendered in preview windows.
+
+===
+V2020.1.4
+NEW FEATURES
+- Showing terrain memory statistic in Inspector.
+- Adding option to remove unused terrain textures.
+IMPROVEMENTS
+- Reorganize project Editor and Runtime settings.
+- Strip out unused terrain & foliage shader from build, reduce build time.
+- Move default painter brush mask to Editor Resources.
+- Billboard Tool: auto fit camera on assigning new prefab, open file dialog in the last used folder.
+FIXES
+- Fix Backup Tool null bug.
+- Minor bug fixes.
+
+===
+V2020.1.3
+FIXES
+- Fix foliage rendering for Unity 2020 in URP.
+
+===
+V2020.1.2
+NEW FEATURES
+- Adding support for Unity 2020
+- Adding grass distance fade.
+- Adding new callback when rendering grass to inject custom shader data. 
+- Adding Height Offset and Step properties for Ramp Maker.
+- Adding Auto Tangent mode for Spline tool.
+IMPROVEMENTS
+- Optimizing terrain GetMesh function.
+- Unload grass cell if it's inactive for a period of time.
+- URP Support Extension now embedded in the package.
+FIXES
+- Many bugs fixing.
+
+===
+V2020.1.1
+IMPROVEMENTS
+- Serialize mesh data as binary for compact size.
+FIXES
+- Fix native arrays issues in build.
+
+===
+V2020.1.0
+NEW FEATURES
+- New geometry generation functions that leverage C# Job System and Burst Compiler.
+- New job-based Foliage Renderer with instanced rendering, cell-based, volume-based, frustum-based culling.
+- New job-based tree collider system.
+- Billboard mode for grass.
+- Adding support for MicroSplat (extension module published by Jason Booth).
+- Adding support for Vegetation Studio Pro (provided as separated free package).
+- Adding direct option for Vertex Color from Albedo Map.
+- Adding option for time-sliced mesh generation, in game and in editor.
+- Adding option to save geometry mesh to asset, or re-generate on enable, saving storage space.
+- New Mask settings for Terrain Data.
+- New Mask painter which lock a particular region of the terrain from being edited, and for other purpose such as VSP vegetation mask.
+- New Wizard window that easier to setup and get started.
+- New grass shape Clump for a denser look and reduce instance count.
+- Convert from Tree/Grass prototype group to Prefab prototype group and vice versa.
+IMPROVEMENTS
+- Many editor refinements.
+- New grass serialization format, reduce storage size.
+- Expose more option for tree shadow, billboard shadow and grass shadow.
+- Split Draw Foliage to Draw Trees and Draw Grass options.
+- Improve Unity Terrain Data Importer/Converter performance.
+- Allow Unity Terrain Converter to use a Polaris Terrain Data as template.
+- Reduce shadow pop-in and out artifact when render trees.
+- Better tree billboard shader.
+- Allow using transform gizmos to move/rotate/scale the whole spline.
+- Tone down geometry painter sensitivity.
+- Adding Target Strength for more control over painter sensitivity.
+- Refine smooth painting strength/kernel.
+- Faster Undo recording for Paint Tools, Spline Tools and Stamp Tools.
+- Display Splat/Tree/Grass selector as grid when there are many prototype group used in the scene.
+- Adding undo/redo for vertex color painting.
+- Faster grass painting, no more green-quad preview and batching.
+FIXES
+- Texture stamper multi-terrain and precision bug.
+- Fix hardcoded path in C# and shader code.
+- Foliage have correct position after convert from Unity terrain.
+- Gradient lookup texture have correct color in linear mode.
+- Fix visibility stamp bug when there is no stamp texture assigned.
+- Fix all reference from "Griffin" to "Polaris" in document, help database and shaders to avoid confusion. 
+- Change all OnSceneGUI callback to DuringSceneGUI.
+- Many minor bug fixings.
+DEPRECATED
+- Remove support for LWRP.
+- Remove batched grass rendering (use instanced rendering instead).
+- Remove Grass Generated Data asset.
+- Remove Polygon Processor option.
+- Remove Polygon Distribution option.
+- Remove support for Unity 2018, now requires 2019+.
