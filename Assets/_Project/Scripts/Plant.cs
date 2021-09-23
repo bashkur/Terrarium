@@ -41,10 +41,13 @@ public class Plant : MonoBehaviour
         stressMeter.HealthCap.fillAmount = diffiulty;
         pullWeight = UnityEngine.Random.Range(minPull, 1.0f - diffiulty);
 
+        projectOnto = Quaternion.AngleAxis(pullAngle, Vector3.up) * Vector3.forward;
+
         //y = pullWeight +- pullTolerance
         //Debug.LogFormat("{0} + {1} = {2}, {0} - {1} = {3}", pullWeight, pullTolerance, pullWeight + pullTolerance, pullWeight - pullTolerance);
         stressMeter.setArrowPosition(pullWeight, pullTolerance);
         UpdatePlayerLoation(playerLoation);
+
     }
 
     public void UpdatePlayerLoation(float currentAngle)
@@ -60,7 +63,12 @@ public class Plant : MonoBehaviour
         //Quaternion rotation = Quaternion.LookRotation(playerStartPosition, Vector3.up);
         //debugArrow.transform.rotation = rotation;
         //debugArrow.transform.Rotate(0, playerLoation, 0);
+
         debugArrow.transform.localEulerAngles = new Vector3(0, playerLoation, 0);
+
+        //currentPlayerLocale.y = debugArrow.transform.position.y;
+        //Quaternion rotation = Quaternion.LookRotation(currentPlayerLocale, Vector3.up);
+        //debugArrow.transform.rotation = rotation;
     }
 
     public void loosenedPlant()
@@ -115,7 +123,7 @@ public class Plant : MonoBehaviour
         pulling = false;
         //pullAngle = 0;
 
-        projectOnto = Quaternion.AngleAxis(pullAngle, Vector3.up) * Vector3.forward;
+        
     }
 
     private void Update()

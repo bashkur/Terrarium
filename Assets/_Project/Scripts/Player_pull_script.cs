@@ -37,6 +37,25 @@ public class Player_pull_script : MonoBehaviour
     //public AnimationCurve pullJitterAmount;
     //public float jitterMult = 2.0f;
 
+    private HandMovement ericScript;
+
+    float calcAngle(GameObject objectOrbitting)
+    {
+        float angle = 0;
+        Vector3 dir = (gameObject.transform.position - objectOrbitting.transform.position).normalized;
+        
+        Vector2 dir2 = new Vector2(dir.x, dir.z);
+        Vector2 for2 = new Vector2(objectOrbitting.transform.forward.x, objectOrbitting.transform.forward.z);
+        float dot = Vector3.Dot(for2, dir2);
+        float cross = (dir2.x * for2.y - dir2.y * for2.x);
+        angle = Mathf.Atan2(cross, dot);
+        angle *= Mathf.Rad2Deg;
+        
+        //angle = Vector3.Angle(dir, transform.forward);
+
+        return angle - 90;
+    }
+
     void SetPlant(Plant plant)
     {
         currentPlant = plant;
@@ -48,20 +67,16 @@ public class Player_pull_script : MonoBehaviour
         }
         if (SoilNeedsLoosened)
         {
-            //rotates by -90 degrees
             startPosition = transform.position;
             currentPlant.playerStartPosition = startPosition;
             currentAngle = 0;
-
-            gameObject.transform.localRotation = Quaternion.Euler(0, 0, -90);
-            //rotates hand as a visual indicator that the player is loosening soil w/ trowel which isnt implemented yet  
-            //grab trowel and set up
-
-            //get angle b/w this gameobject location and plant.Forward
-
-            Vector3 dir = (plant.gameObject.transform.position - gameObject.transform.position).normalized;
+            //Vector3 dir = (plant.gameObject.transform.position - gameObject.transform.position).normalized;
             //find angle = dot
-            startingAngle = Mathf.Acos(Vector3.Dot(dir, plant.transform.forward));
+            //startingAngle = Mathf.Acos(Vector3.Dot(dir, plant.transform.forward));
+
+            startingAngle = calcAngle(plant.gameObject);
+            //startingAngle -= 90;
+            Debug.Log(startingAngle);
         }
     }
 
@@ -74,9 +89,13 @@ public class Player_pull_script : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        ericScript = gameObject.GetComponent<HandMovement>();
+        ericScript.enabled = true;
+
         SetPlant(currentPlant);
         if (SoilNeedsLoosened)
         {
+            ericScript.enabled = false;
             //diggingHoleTimer = new Timer();
             //diggingHoleTimer.Elapsed += new ElapsedEventHandler(onTimer);
             //diggingHoleTimer.Interval = timerInterval;
@@ -153,7 +172,17 @@ public class Player_pull_script : MonoBehaviour
                     rightMost = currentAngle;
             }
 
-            currentPlant.UpdatePlayerLoation((startingAngle + currentAngle)%360);
+            if (ericScript.enabled == true)
+            {
+                currentAngle = calcAngle(currentPlant.gameObject);
+                Debug.Log(currentAngle);
+
+                currentPlant.UpdatePlayerLoation((currentAngle));
+            }
+            else
+            {
+                currentPlant.UpdatePlayerLoation((startingAngle + currentAngle));
+            }
 
             if (SoilNeedsLoosened)
             {
@@ -169,6 +198,8 @@ public class Player_pull_script : MonoBehaviour
 
                     currentPlant.loosenedPlant();
                     pullingOut = true;
+
+                    ericScript.enabled = true;
                 }
             }
 
