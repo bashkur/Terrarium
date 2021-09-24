@@ -24,6 +24,18 @@ public enum typeOfQTE
     PreciseClick
 };
 
+public class PreciseClickEvent : QuickTimeEvents
+{
+    public Vector2 spawnLocation;
+    public Vector4 bounds;
+    public float radius;
+
+    public PreciseClickEvent(GameObject _player, ZombieScript _target, Canvas _can) : base(_player, _target, _can)
+    {
+
+    }
+ }
+
 public class SpamButtonEvent: QuickTimeEvents
 {
     public KeyCode keyCode;
