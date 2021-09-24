@@ -27,7 +27,7 @@ public class Fillamount : MonoBehaviour
         if (height <= 0)
         {
             height = StressBar.gameObject.transform.GetComponent<RectTransform>().rect.height;
-            Debug.Log(height);
+            //Debug.Log(height);
         }
     }
 
