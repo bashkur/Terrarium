@@ -37,7 +37,11 @@ public class ZombieScript : MonoBehaviour
     {
         totalNumQTE--;
         numWins += (playerWon) ? 1 : 0;
-        currentEvent = null;
+        
+        if(totalNumQTE > 0)
+        {
+            generateNewEvent();
+        }
     }
 
     public void generateNewEvent()

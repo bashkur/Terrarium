@@ -34,17 +34,20 @@ public class SpamButtonEvent: QuickTimeEvents
     //public Image BackgroundBar;
     public Image HumanSide;
     public Image ZombieSide;
+    public Image MiddleBar;
 
     public float threshold = 0.1f;
 
     public AnimationCurve zombieForce;
-    public float fillThreshold = 0.95f;
+    public float fillThreshold = 0.85f;
     private float time;
     private bool down;
 
     private float timeElapse;
     private int numPresses;
     private float rate;
+
+    private float maxHeight;
 
     public SpamButtonEvent(GameObject _player, ZombieScript _target, Canvas _can) : base (_player, _target, _can)
     {
@@ -58,7 +61,15 @@ public class SpamButtonEvent: QuickTimeEvents
         parent.transform.localPosition = Vector3.zero;
         parent.transform.localScale = new Vector3(1, 1, 1);
 
-        keyTextMesh = parent.AddComponent<TextMeshPro>();
+        keyTextMesh = parent.GetComponent<TextMeshPro>();
+        if (keyTextMesh == null)
+        {
+            keyTextMesh = parent.AddComponent<TextMeshPro>();
+        }
+        else
+        {
+            keyTextMesh.enabled = true;
+        }
         keyTextMesh.text = "" + keyCode.ToString();
 
         keyTextMesh.autoSizeTextContainer = true;
@@ -83,10 +94,14 @@ public class SpamButtonEvent: QuickTimeEvents
 
         //quickTimeBar.transform.parent = can.transform;
 
+        maxHeight = quickTimeBar.transform.GetComponent<RectTransform>().rect.height;
+
         GameObject temp = quickTimeBar.transform.GetChild(0).gameObject;
         HumanSide = temp.GetComponent<Image>();
         temp = temp.transform.GetChild(0).gameObject;
         ZombieSide = temp.GetComponent<Image>();
+        temp = temp.transform.GetChild(0).gameObject;
+        MiddleBar = temp.GetComponent<Image>();
 
         HumanSide.fillAmount = 0.5f;
         ZombieSide.fillAmount = 0.5f;
@@ -124,6 +139,7 @@ public class SpamButtonEvent: QuickTimeEvents
             Debug.Log("player won");
             target.onComplete(true);
             quickTimeBar.SetActive(false);
+            keyTextMesh.enabled = false;
             return;
         }
         else if (HumanSide.fillAmount < 1 - fillThreshold)
@@ -131,10 +147,11 @@ public class SpamButtonEvent: QuickTimeEvents
             Debug.Log("zombie won");
             target.onComplete(false);
             quickTimeBar.SetActive(false);
+            keyTextMesh.enabled = false;
             return;
         }
         //((rate < 1.0f)? rate : 1)
-        float delta = zombieForce.Evaluate(time) * Time.deltaTime * rate;
+        float delta = zombieForce.Evaluate(time/4) * Time.deltaTime * rate;
 
         if (ZombieSide.fillAmount < threshold)
         {
@@ -143,6 +160,9 @@ public class SpamButtonEvent: QuickTimeEvents
 
         HumanSide.fillAmount -= delta;
         ZombieSide.fillAmount = 1 - HumanSide.fillAmount;
+
+        MiddleBar.gameObject.transform.localPosition = new Vector3(0, maxHeight * HumanSide.fillAmount, 0);
+
         time += Time.deltaTime;
     }
 }
