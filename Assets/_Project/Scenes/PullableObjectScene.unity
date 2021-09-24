@@ -472,7 +472,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &715404856
 RectTransform:
   m_ObjectHideFlags: 0
@@ -486,12 +486,12 @@ RectTransform:
   m_Children:
   - {fileID: 803709795}
   m_Father: {fileID: 1015805327}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -0.00083034567, y: -228.99997}
-  m_SizeDelta: {x: 100, y: 60}
+  m_SizeDelta: {x: 100, y: 11}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &715404857
 MonoBehaviour:
@@ -513,7 +513,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 0ff88b5171ddb0e43a428a63de397f0d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2995dc6492ee8ec41865de03d37f0e80, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -542,6 +542,7 @@ GameObject:
   - component: {fileID: 803709795}
   - component: {fileID: 803709797}
   - component: {fileID: 803709796}
+  - component: {fileID: 803709798}
   m_Layer: 5
   m_Name: ProgressFill
   m_TagString: Untagged
@@ -559,15 +560,14 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 1693151178}
+  m_Children: []
   m_Father: {fileID: 715404856}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 60}
+  m_SizeDelta: {x: 100, y: 11}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &803709796
 MonoBehaviour:
@@ -589,14 +589,14 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 3bb7a77264309454b87ea4b6801fb501, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 089c8b75e6deb234fa9ec217010cda34, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
-  m_FillMethod: 4
+  m_FillMethod: 0
   m_FillAmount: 0
   m_FillClockwise: 1
-  m_FillOrigin: 2
+  m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
 --- !u!222 &803709797
@@ -607,6 +607,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 803709794}
   m_CullTransparentMesh: 1
+--- !u!114 &803709798
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 803709794}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86bb853a9da4dd841ae75683e972ee90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fillBar: {fileID: 0}
+  useRoundedEdge: 1
 --- !u!114 &805866396 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4485005444489272988, guid: 1ff9e6d6d49d69446a380448e7562d22, type: 3}
@@ -924,6 +938,7 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: -0.00042198302}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 1693151178}
   - {fileID: 715404856}
   m_Father: {fileID: 1165467441}
   m_RootOrder: 0
@@ -1512,6 +1527,10 @@ PrefabInstance:
     - target: {fileID: 426708770052167677, guid: c8afee65ca2a88b44a0775b62aac9672, type: 3}
       propertyPath: lineThiness
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2361905584018085622, guid: c8afee65ca2a88b44a0775b62aac9672, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 2.6
       objectReference: {fileID: 0}
     - target: {fileID: 3791956458929940265, guid: c8afee65ca2a88b44a0775b62aac9672, type: 3}
       propertyPath: m_Pivot.x
@@ -2126,8 +2145,9 @@ GameObject:
   - component: {fileID: 1693151178}
   - component: {fileID: 1693151180}
   - component: {fileID: 1693151179}
+  - component: {fileID: 1693151181}
   m_Layer: 5
-  m_Name: ProgressBackground
+  m_Name: ProgressFill_Cap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2141,16 +2161,16 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1693151177}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -0.000072270224}
+  m_LocalScale: {x: 1.2750003, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 803709795}
+  m_Father: {fileID: 1015805327}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0.000042989785}
-  m_SizeDelta: {x: 100, y: 60}
+  m_AnchoredPosition: {x: -0.00083034567, y: -228.99997}
+  m_SizeDelta: {x: 100, y: 11}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1693151179
 MonoBehaviour:
@@ -2172,7 +2192,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 9d17387a1a971e54eada063cd9dbaa4d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 38a5f1d349a174e45820c9fd33ac73e3, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2190,6 +2210,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1693151177}
   m_CullTransparentMesh: 1
+--- !u!114 &1693151181
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1693151177}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24a59014306c125479c2a7c15d4ca36d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fillBar: {fileID: 803709796}
 --- !u!1 &1740399908
 GameObject:
   m_ObjectHideFlags: 0
@@ -2469,6 +2502,10 @@ PrefabInstance:
       propertyPath: jitterMult
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 4485005444489272988, guid: 1ff9e6d6d49d69446a380448e7562d22, type: 3}
+      propertyPath: progressBar
+      value: 
+      objectReference: {fileID: 803709798}
     - target: {fileID: 4485005444489272988, guid: 1ff9e6d6d49d69446a380448e7562d22, type: 3}
       propertyPath: stressMeter
       value: 
