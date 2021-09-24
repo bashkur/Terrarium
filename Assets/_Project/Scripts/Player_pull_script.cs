@@ -76,8 +76,6 @@ public class Player_pull_script : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
-
         //body = GetComponent<Rigidbody>();
         ericScript = gameObject.GetComponent<HandMovement>();
         ericScript.enabled = true;

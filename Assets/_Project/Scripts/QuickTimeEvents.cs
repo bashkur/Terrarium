@@ -30,11 +30,27 @@ public class PreciseClickEvent : QuickTimeEvents
     public Vector4 bounds;
     public float radius;
 
+    public float timeLeft;
+    private float startingTime;
+
     public PreciseClickEvent(GameObject _player, ZombieScript _target, Canvas _can) : base(_player, _target, _can)
     {
 
     }
- }
+
+    public override void Start()
+    {
+        base.Update();
+        startingTime = timeLeft;
+    }
+
+    public override void Update()
+    {
+        base.Update();
+        timeLeft -= Time.deltaTime;
+    }
+   
+}
 
 public class SpamButtonEvent: QuickTimeEvents
 {
@@ -68,11 +84,14 @@ public class SpamButtonEvent: QuickTimeEvents
         type = typeOfQTE.SpamButton;
         keyCode = KeyCode.A +  (int)UnityEngine.Random.Range(0.0f, 25.0f);
 
+        quickTimeBar = target.quickTimeBar;
+
         parent = new GameObject("QTE");
-        parent.transform.parent = can.transform;
+        parent.transform.parent = quickTimeBar.transform;
 
         parent.transform.localEulerAngles = Vector3.zero;
-        parent.transform.localPosition = Vector3.zero;
+        //parent.transform.localPosition = Vector3.zero;
+        parent.transform.localPosition = new Vector3(0, 227, 0);
         parent.transform.localScale = new Vector3(1, 1, 1);
 
         keyTextMesh = parent.GetComponent<TextMeshPro>();
@@ -95,7 +114,7 @@ public class SpamButtonEvent: QuickTimeEvents
         keyTextMesh.outlineWidth = 0.2f;
 
 
-        quickTimeBar = target.quickTimeBar;
+        
         //GameObject instantiatedGameObj = GameObject.Instantiate(quickTimeBar, new Vector3(0, 0, 0), Quaternion.identity);
         quickTimeBar.SetActive(true);
 
@@ -129,6 +148,7 @@ public class SpamButtonEvent: QuickTimeEvents
 
     public override void Start()
     {
+        base.Start();
         time = 0.0f;
         down = false;
         Debug.Log( keyCode);
@@ -136,6 +156,7 @@ public class SpamButtonEvent: QuickTimeEvents
 
     public override void Update()
     {
+        base.Update();
         if (Input.GetKeyDown(keyCode) && !down)
         {
             timeElapse = time;
