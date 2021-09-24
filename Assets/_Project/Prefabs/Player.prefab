@@ -258,7 +258,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8320ed4eb60fae54fb81ce3cf815d10e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gravity: 9.8
+  gravity: -9.8
   walkSpeed: 5
 --- !u!1 &7372529694718775130
 GameObject:
@@ -356,6 +356,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd13a5598ecb1324d8e5980d494a1dbe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mouseSensitivity: 200
+  mouseSensitivity: 500
   lookAngleLimit: 45
   player: {fileID: 7372529694681914565}

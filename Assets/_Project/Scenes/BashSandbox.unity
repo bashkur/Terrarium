@@ -609,10 +609,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 7372529694681914555, guid: 6793e3a1d3ecf084ca2433a590b7b3d7, type: 3}
-      propertyPath: gravity
-      value: -9.8
-      objectReference: {fileID: 0}
     - target: {fileID: 7372529694681914565, guid: 6793e3a1d3ecf084ca2433a590b7b3d7, type: 3}
       propertyPath: m_RootOrder
       value: 2

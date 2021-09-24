@@ -1,15 +1,14 @@
-using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
-    [SerializeField] private GameObject blurPanel;
+    [SerializeField] private GameObject mainMenu;
+    [SerializeField] private GameObject pauseMenu;
     [SerializeField] private GameObject quitDialog;
 
     private void Awake()
     {
-        blurPanel.SetActive(false);
         quitDialog.SetActive(false);
     }
     
@@ -26,18 +25,16 @@ public class UIManager : MonoBehaviour
     public void QuitGame()
     {
         Debug.Log("quit game");
-        Application.Quit();
+        GameManager.Instance.QuitGame();
     }
 
-    public void OpenModal()
+    public void OpenQuitDialog()
     {
-        blurPanel.SetActive(true);
         quitDialog.SetActive(true);
     }
 
-    public void CloseModal()
+    public void CloseQuitDialog()
     {
-        blurPanel.SetActive(false);
         quitDialog.SetActive(false);
     }
 }
