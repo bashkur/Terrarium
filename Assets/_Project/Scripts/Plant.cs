@@ -25,9 +25,10 @@ public class Plant : MonoBehaviour
     public AnimationCurve difficultyCurve;
     public float numToComplete = 3;
     public Fillamount stressMeter;
+    public Progressbar progressBar;
     public float minPull = 0.1f;
     
-
+    public bool dontHold { get; set; }
     private bool pulling;
     private bool donePulling;
 
@@ -49,6 +50,7 @@ public class Plant : MonoBehaviour
         stressMeter.setArrowPosition(pullWeight, pullTolerance);
         UpdatePlayerLoation(playerLoation);
 
+        dontHold = true;
     }
 
     public void UpdatePlayerLoation(float currentAngle)
@@ -128,8 +130,9 @@ public class Plant : MonoBehaviour
         updatePullAngle();
         pulling = false;
         //pullAngle = 0;
+        dontHold = false;
 
-        stressMeter.gameObject.SetActive(true);
+        stressMeter.setMeAndTheBoisActive(true);
 
     }
 
@@ -161,7 +164,7 @@ public class Plant : MonoBehaviour
                         donePulling = true;
                         pulling = false;
                         turnOnParticleEffectRing(false);
-                        stressMeter.gameObject.SetActive(false);
+                        stressMeter.setMeAndTheBoisActive(false);
                         Debug.Log("done pulling");
                     }
                 }
@@ -170,6 +173,8 @@ public class Plant : MonoBehaviour
             {
                 currentPullTime = Mathf.Max(currentPullTime - Time.deltaTime, 0.0f);
             }
+
+            progressBar.setFill(Mathf.Min((currentPullTime / pullTime), 1.0f));
         }
         else
         {

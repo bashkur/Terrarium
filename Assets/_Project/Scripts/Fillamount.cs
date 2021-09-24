@@ -31,6 +31,11 @@ public class Fillamount : MonoBehaviour
         }
     }
 
+    public void setMeAndTheBoisActive(bool active)
+    {
+        gameObject.transform.parent.gameObject.SetActive(active);
+    }
+
     public void setArrowPosition(float target, float tolerance)
     {
         //float y1 = (target - tolerance) * (211 + 205) - 205;

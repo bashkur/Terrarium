@@ -132,6 +132,8 @@ public class Player_pull_script : MonoBehaviour
             {
                 click = false;
                 hold = false;
+
+                currentPlant.dontHold = false;
             }
 
             if (Input.GetButtonUp("Fire2"))
@@ -192,7 +194,7 @@ public class Player_pull_script : MonoBehaviour
                 }
             }
 
-            if (pullingOut)
+            if (pullingOut && !currentPlant.dontHold)
             {
                 float distanceAway = 0;
                 Vector3 projectOnto = currentPlant.projectOnto.normalized;

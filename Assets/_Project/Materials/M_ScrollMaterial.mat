@@ -23,12 +23,19 @@ Material:
         m_Texture: {fileID: 2800000, guid: 85d1a11ae383c604eaad296edccb41ed, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _VingeteTex:
+    - _MainTex2:
         m_Texture: {fileID: 2800000, guid: c8862357c2c7e2f4888de1fe277c2146, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _VingeteTex:
+        m_Texture: {fileID: 2800000, guid: 7db33de210ff3c44a962243fe2a5a284, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Floats:
-    - _UVScrollSpeedX: 0.1
-    - _UVScrollSpeedY: 0.1
-    m_Colors: []
+    - _Emission: 1
+    - _LineThiness: 2
+    - _UVScrollSpeedX: 0.5
+    - _UVScrollSpeedY: 0.5
+    m_Colors:
+    - _EmissionColor: {r: 1.5294118, g: 0.24313726, b: 0.47843137, a: 0}
   m_BuildTextureStacks: []

@@ -112,8 +112,6 @@ public class SpamButtonEvent: QuickTimeEvents
 
         keyTextMesh.outlineColor = new Color32(255, 255, 255, 255);
         keyTextMesh.outlineWidth = 0.2f;
-
-
         
         //GameObject instantiatedGameObj = GameObject.Instantiate(quickTimeBar, new Vector3(0, 0, 0), Quaternion.identity);
         quickTimeBar.SetActive(true);
@@ -167,7 +165,7 @@ public class SpamButtonEvent: QuickTimeEvents
         {
             rate = time - timeElapse;
             numPresses++;
-            HumanSide.fillAmount += 0.01f * ((rate < 0.5f) ? 1.5f : 1) * ((rate < 0.05f) ? 2 : 1);
+            HumanSide.fillAmount += 0.01f * ((rate < 0.8f) ? 1.5f : 1) * ((rate < 0.25f) ? 2 : 1);
             down = false;
         }
 
@@ -193,7 +191,7 @@ public class SpamButtonEvent: QuickTimeEvents
             rate = time - timeElapse;
         }
         //* ((rate < 0.05f) ? 0.05f : 1)
-        float delta = zombieForce.Evaluate(time / 4)/ maxCurveVal * Time.deltaTime * coeffecient * ((rate != 0)? 1 : 0) ;
+        float delta = zombieForce.Evaluate(time)/ maxCurveVal * Time.deltaTime * coeffecient * ((rate != 0)? 1 : 0) * ((rate < 0.8f) ? 0.5f : 1);
         HumanSide.fillAmount -= delta;
         ZombieSide.fillAmount = 1 - HumanSide.fillAmount;
 
