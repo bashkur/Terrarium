@@ -129,7 +129,8 @@ public class Plant : MonoBehaviour
         pulling = false;
         //pullAngle = 0;
 
-        
+        stressMeter.gameObject.SetActive(true);
+
     }
 
     private void Update()
@@ -160,6 +161,7 @@ public class Plant : MonoBehaviour
                         donePulling = true;
                         pulling = false;
                         turnOnParticleEffectRing(false);
+                        stressMeter.gameObject.SetActive(false);
                         Debug.Log("done pulling");
                     }
                 }

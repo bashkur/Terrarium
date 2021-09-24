@@ -37,6 +37,7 @@ public class SpamButtonEvent: QuickTimeEvents
     public Image MiddleBar;
 
     public float threshold = 0.1f;
+    public float coeffecient = 0.25f;
 
     public AnimationCurve zombieForce;
     public float fillThreshold = 0.85f;
@@ -46,6 +47,7 @@ public class SpamButtonEvent: QuickTimeEvents
     private float timeElapse;
     private int numPresses;
     private float rate;
+    private float maxCurveVal;
 
     private float maxHeight;
 
@@ -106,7 +108,9 @@ public class SpamButtonEvent: QuickTimeEvents
         HumanSide.fillAmount = 0.5f;
         ZombieSide.fillAmount = 0.5f;
 
-        rate = 1;
+        rate = 0;
+
+        maxCurveVal = zombieForce[zombieForce.length - 1].value;
 
         Start();
     }
@@ -130,7 +134,7 @@ public class SpamButtonEvent: QuickTimeEvents
         {
             rate = time - timeElapse;
             numPresses++;
-            HumanSide.fillAmount += 0.01f;
+            HumanSide.fillAmount += 0.01f * ((rate < 0.5f) ? 1.5f : 1) * ((rate < 0.05f) ? 2 : 1);
             down = false;
         }
 
@@ -150,14 +154,13 @@ public class SpamButtonEvent: QuickTimeEvents
             keyTextMesh.enabled = false;
             return;
         }
-        //((rate < 1.0f)? rate : 1)
-        float delta = zombieForce.Evaluate(time/4) * Time.deltaTime * rate;
-
-        if (ZombieSide.fillAmount < threshold)
+        
+        if(rate!= 0 && !down)
         {
-            delta = delta * 2.0f;
+            rate = time - timeElapse;
         }
-
+        //* ((rate < 0.05f) ? 0.05f : 1)
+        float delta = zombieForce.Evaluate(time / 4)/ maxCurveVal * Time.deltaTime * coeffecient * ((rate != 0)? 1 : 0) ;
         HumanSide.fillAmount -= delta;
         ZombieSide.fillAmount = 1 - HumanSide.fillAmount;
 
