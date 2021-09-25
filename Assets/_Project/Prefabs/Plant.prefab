@@ -4881,6 +4881,7 @@ GameObject:
   - component: {fileID: 3321145228292132772}
   - component: {fileID: 3321145228292132771}
   - component: {fileID: 4485005444489272988}
+  - component: {fileID: 1683896107100133736}
   m_Layer: 0
   m_Name: Plant
   m_TagString: Untagged
@@ -4978,8 +4979,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbb3c69a26f601c4b8a53acf392f34e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  angleDifferenceWeight: 4
   debugArrow: {fileID: 7095839004326624900}
-  pullDistance: 100
+  pullDistance: 10
   IndicatorColors:
     serializedVersion: 2
     key0: {r: 1, g: 0.051886797, b: 0.051886797, a: 1}
@@ -5037,86 +5039,20 @@ MonoBehaviour:
     m_RotationOrder: 4
   numToComplete: 3
   stressMeter: {fileID: 0}
+  progressBar: {fileID: 0}
   minPull: 0.1
-  pullJitterAmount:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: -0.01478617
-      outSlope: -0.01478617
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0.34577048
-    - serializedVersion: 3
-      time: 0.25
-      value: -0.2
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.5
-      value: 0
-      inSlope: -0.03649264
-      outSlope: -0.03649264
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.4030776
-    - serializedVersion: 3
-      time: 0.75
-      value: 0.2
-      inSlope: 0.36602727
-      outSlope: 0.36602727
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.84290874
-      value: 0.19368728
-      inSlope: 0.5865208
-      outSlope: 0.5865208
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.89466876
-      value: 0.3101688
-      inSlope: 0.6804786
-      outSlope: 0.6804786
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.95020926
-      value: 0.2604992
-      inSlope: -0.31558642
-      outSlope: -0.31558642
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.9914516
-      value: 0.30229744
-      inSlope: -0.043952424
-      outSlope: -0.043952424
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.32036614
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  jitterMult: 2
+--- !u!114 &1683896107100133736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3321145228292132770}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 788cd70212e8a564990f02440baa221d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &7978146716856796117
 PrefabInstance:
   m_ObjectHideFlags: 0
