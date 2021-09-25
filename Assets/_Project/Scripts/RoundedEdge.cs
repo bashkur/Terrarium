@@ -9,7 +9,9 @@ public class RoundedEdge : MonoBehaviour
     public Image fillBar;
     private string fillOriginName;
     private float length;
+    private float myLength;
     private RectTransform rectangle;
+    private bool enabled = false;
 
     void OnEnable()
     {
@@ -38,35 +40,46 @@ public class RoundedEdge : MonoBehaviour
         Debug.Log(string.Format("{0} is using {1} fill method with the origin on {2}", name, fillBar.fillMethod, fillOriginName));
 
         length = fillBar.gameObject.GetComponent<RectTransform>().rect.width;
+
+        rectangle = gameObject.GetComponent<RectTransform>();
+
+        myLength = rectangle.rect.width;
+
+        enabled = true;
     }
 
 
     public void updateFill()
     {
-        float moveAmount = fillBar.fillAmount * length;
-
-        switch ((Image.FillMethod)fillBar.fillMethod)
+        if (enabled)
         {
-            case Image.FillMethod.Horizontal:
+            float moveAmount = fillBar.fillAmount * length * length /myLength;
 
-                rectangle.localPosition = new Vector3(moveAmount, rectangle.localPosition.y, rectangle.localPosition.z);
+            switch ((Image.FillMethod)fillBar.fillMethod)
+            {
+                case Image.FillMethod.Horizontal:
 
-                break;
-            case Image.FillMethod.Vertical:
+                    rectangle.localPosition = new Vector3(moveAmount, 0, 0);
 
-                rectangle.localPosition = new Vector3(rectangle.localPosition.x, moveAmount, rectangle.localPosition.z);
+                    break;
+                case Image.FillMethod.Vertical:
 
-                break;
+                    rectangle.localPosition = new Vector3(0, moveAmount, 0);
 
-            default:
-                break;
+                    break;
+
+                default:
+                    break;
+            }
+
+            Debug.LogFormat("Pos: {0}, Amount: {1}, Length: {2}", rectangle.localPosition, moveAmount, myLength);
         }
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        rectangle = gameObject.GetComponent<RectTransform>();
+
     }
 
     // Update is called once per frame

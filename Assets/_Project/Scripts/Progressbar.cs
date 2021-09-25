@@ -6,30 +6,25 @@ using UnityEngine.UI;
 public class Progressbar : MonoBehaviour
 {
 
-    public Image fillBar;
-    private RoundedEdge edge;
-    public bool useRoundedEdge = true;
+    private Image fillBar;
+    public RoundedEdge edge;
+    private bool enabled = false;
 
     void OnEnable()
     {
 
         fillBar = gameObject.GetComponent<Image>();
 
-        if (edge == null)
-        {
-            useRoundedEdge = false;
-        }
-        else
-        {
-            edge.fillBar = fillBar;
-        }
+        edge.fillBar = fillBar;
+        enabled = true;
+
     }
 
     public void setFill(float amount)
     {
-        fillBar.fillAmount = amount;
-        if(useRoundedEdge)
+        if (enabled)
         {
+            fillBar.fillAmount = amount;
             edge.updateFill();
         }
     }
