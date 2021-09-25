@@ -20,18 +20,33 @@ public class GameManager : MonoBehaviour
     }
 
 
-    [HideInInspector]
     public enum GameState
     {
         MainMenu,
         Running,
-        Paused
+        Paused,
+        GameOver
     }
     public GameState gameState = GameState.MainMenu;
+
+    public delegate void OnScoreChange(int newVal);
+    public event OnScoreChange OnScoreChanged;
+    private int score;
+    public int Score
+    {
+        get => score;
+        private set
+        {
+            if (score == value) return;
+            score = value;
+            OnScoreChanged?.Invoke(score);
+        }
+    }
 
     private void Awake()
     {
         instance = this;
+        Score = 0;
     }
     private void OnEnable()
     {
@@ -41,11 +56,10 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.sceneLoaded -= OnSceneFinishedLoading;
     }
-
     
     private void OnSceneFinishedLoading(Scene scene, LoadSceneMode mode)
     {
-        // SceneManager.SetActiveScene(scene);
+        // TODO: might have to use this when the scene is heavier and takes longer to load
         Debug.Log($"{scene.name} finished loading");
     }
     
@@ -86,5 +100,11 @@ public class GameManager : MonoBehaviour
         EditorApplication.ExitPlaymode();
 #endif
         Application.Quit();
+    }
+
+    public void UpdateScore(int amount)
+    {
+        Score += amount;
+        Debug.Log($"Score: {Score}");
     }
 }

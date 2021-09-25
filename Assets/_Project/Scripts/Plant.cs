@@ -90,6 +90,8 @@ public class Plant : MonoBehaviour
                 child.SetActive(setVal);
             }
         }
+
+        stressMeter.setMeAndTheBoisActive(setVal);
     }
 
     public void isPulling(bool isPull, float distance)
@@ -132,7 +134,7 @@ public class Plant : MonoBehaviour
         //pullAngle = 0;
         dontHold = false;
 
-        stressMeter.setMeAndTheBoisActive(true);
+        stressMeter.setMeAndTheBoisActive(false);
 
     }
 
@@ -169,17 +171,24 @@ public class Plant : MonoBehaviour
                     }
                 }
             }
-            else if (currentPullTime > 0)
-            {
-                currentPullTime = Mathf.Max(currentPullTime - Time.deltaTime, 0.0f);
-            }
 
-            progressBar.setFill(Mathf.Min((currentPullTime / pullTime), 1.0f));
+            
         }
         else
         {
             //give player a score! they just pulled oout the plant
         }
+
+        if (!donePulling)
+        {
+            if (!pulling)
+            {
+                currentPullTime = Mathf.Max(currentPullTime - Time.deltaTime, 0.0f);
+            }
+            progressBar.setFill(Mathf.Min((currentPullTime / pullTime), 1.0f));
+        }
+
+        
     }
 
     //draw glowing circle around plant that bulges out at the pull angle...

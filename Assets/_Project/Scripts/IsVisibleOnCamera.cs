@@ -16,7 +16,7 @@ public class IsVisibleOnCamera : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        parentObject = gameObject.transform.parent.GetComponent("HandMovement") as HandMovement;
+        parentObject = gameObject.transform.parent.GetComponent<HandMovement>();
         objectRenderer = gameObject.GetComponent<Renderer>();
     }
 

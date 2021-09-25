@@ -16,7 +16,7 @@ public class PlayerMovement : MonoBehaviour
         gameManager.gameState = GameManager.GameState.Running;
         
         characterController = GetComponent<CharacterController>();
-        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.lockState = CursorLockMode.Confined;
         Cursor.visible = false;
     }
 
@@ -26,6 +26,11 @@ public class PlayerMovement : MonoBehaviour
         {
             // do not process player movement when game is paused
             return;
+        }
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            gameManager.UpdateScore(1);
         }
         
         if (characterController.isGrounded && velocity.y < 0)
