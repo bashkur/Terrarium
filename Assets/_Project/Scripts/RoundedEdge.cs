@@ -72,7 +72,7 @@ public class RoundedEdge : MonoBehaviour
                     break;
             }
 
-            Debug.LogFormat("Pos: {0}, Amount: {1}, Length: {2}", rectangle.localPosition, moveAmount, myLength);
+            //Debug.LogFormat("Pos: {0}, Amount: {1}, Length: {2}", rectangle.localPosition, moveAmount, myLength);
         }
     }
 

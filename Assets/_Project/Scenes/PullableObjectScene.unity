@@ -991,7 +991,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 11}
+  m_SizeDelta: {x: 86, y: 4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &803709796
 MonoBehaviour:
@@ -1013,12 +1013,12 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 089c8b75e6deb234fa9ec217010cda34, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 589ebf611253cbd46a2555f48568749b, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 0
-  m_FillAmount: 0
+  m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
@@ -1043,7 +1043,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86bb853a9da4dd841ae75683e972ee90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  useRoundedEdge: 1
+  edge: {fileID: 1693151181}
 --- !u!114 &805866396 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4485005444489272988, guid: 1ff9e6d6d49d69446a380448e7562d22, type: 3}
@@ -2443,7 +2443,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1490741952
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2705,7 +2705,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0.00010681152}
-  m_SizeDelta: {x: 100, y: 11}
+  m_SizeDelta: {x: 86, y: 4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1693151179
 MonoBehaviour:
@@ -2727,7 +2727,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 38a5f1d349a174e45820c9fd33ac73e3, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e7d92d168cc2eb5459ee467689b87004, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
