@@ -40,18 +40,21 @@ public class TerrainScript : MonoBehaviour
     }
     public IEnumerator makeHole(int x, int y)
     {
-        
-        pSys.transform.position = new Vector3(x, 1, y );
+
+        ParticleSystem _pSys = GameObject.Instantiate(pSys) as ParticleSystem;
+
+        _pSys.transform.position = new Vector3(x, 1, y );
         x += (int)Mathf.Abs(transform.position.x);
         y += (int)Mathf.Abs(transform.position.z);
-        pSys.Play();
+        _pSys.Play();
+        
         for (float dist = 1f; dist  > 0.0f; dist -= (0.3f * Time.deltaTime))
         {
             _terraindata.SetHeightsDelayLOD(x, y, new float[,] { { dist } });
             yield return new WaitForEndOfFrame();
         }
-        pSys.Stop();
-
+        //_pSys?.Stop();
+        Destroy(_pSys, 3);
     }
     public IEnumerator BulgeMe(int x, int y)
     {
