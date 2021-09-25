@@ -37,6 +37,7 @@ public class Player_pull_script : MonoBehaviour
     public bool UnderAttack = false;
 
     private HandMovement ericScript;
+    private PlayerMovement bashScript;
 
     float calcAngle(GameObject objectOrbitting)
     {
@@ -96,6 +97,7 @@ public class Player_pull_script : MonoBehaviour
     {
         //body = GetComponent<Rigidbody>();
         ericScript = gameObject.GetComponent<HandMovement>();
+        bashScript = gameObject.GetComponent<PlayerMovement>();
         ericScript.enabled = true;
     }
 

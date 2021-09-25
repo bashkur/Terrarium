@@ -26,7 +26,7 @@ Material:
     m_Floats:
     - _Glossiness: 0.5
     - _Metallic: 0
-    - _StencilMask: 254
+    - _StencilMask: 218
     m_Colors:
     - _Color: {r: 0.70073867, g: 0.70527977, b: 0.8207547, a: 1}
   m_BuildTextureStacks: []
