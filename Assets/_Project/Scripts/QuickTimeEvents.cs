@@ -118,6 +118,8 @@ public class SpamButtonEvent: QuickTimeEvents
 
         maxCurveVal = zombieForce[zombieForce.length - 1].value;
 
+        Debug.Log("yo");
+
         Start();
     }
 
@@ -126,7 +128,7 @@ public class SpamButtonEvent: QuickTimeEvents
         base.Start();
         time = 0.0f;
         down = false;
-        Debug.Log( keyCode);
+        //Debug.Log( keyCode);
     }
 
     public override void Update()

@@ -135,7 +135,7 @@ public class Plant : MonoBehaviour
         dontHold = false;
 
         stressMeter.setMeAndTheBoisActive(false);
-
+        turnOnParticleEffectRing(false);
     }
 
     private void Update()

@@ -13,23 +13,62 @@ public class ZombieScript : MonoBehaviour
     public GameObject quickTimeBar;
     public AnimationCurve zombieForce;
 
+    bool searchForHuman = true;
+    public float senseDistance = 2.0f;
+    private Player_pull_script puller;
+
+    void OnDestroy()
+    {
+        //deconstructor
+        //gameObject.transform.parent.gameObject.childDied();
+    }
+
     void Start()
     {
         GameObject[] results = GameObject.FindGameObjectsWithTag("Player");
         player = results[0];
+        puller = player.GetComponent<Player_pull_script>();
 
         results = GameObject.FindGameObjectsWithTag("Canvas");
         can = results[0].GetComponent<Canvas>();
 
-        currentEvent = new SpamButtonEvent(player, this, can);
+    }
+
+    void spottedPlayer()
+    {
+        generateNewEvent();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (totalNumQTE > 0)
+        if (searchForHuman)
         {
-            currentEvent?.Update();
+            Vector3 dir = (gameObject.transform.position - player.transform.position);
+            dir.y = 0;
+
+            Debug.Log(dir.magnitude);
+
+            if (dir.magnitude <= senseDistance)
+            {
+                
+                Debug.Log("seen!");
+                //Debug.Log(puller);
+                if(!puller.UnderAttack)
+                {
+                    puller.Besieged(this, true);
+                    
+                    searchForHuman = false;
+                    spottedPlayer();
+                }
+            }
+        }
+        else
+        {
+            if (totalNumQTE > 0)
+            {
+                currentEvent?.Update();
+            }
         }
     }
 
@@ -42,12 +81,16 @@ public class ZombieScript : MonoBehaviour
         {
             generateNewEvent();
         }
+        else
+        {
+            puller.Besieged(this, false);
+        }
     }
 
     public void generateNewEvent()
     {
-        currentEvent = null;
-        int number = UnityEngine.Random.Range(0, typeOfQTE.GetNames(typeof(typeOfQTE)).Length);
+        //currentEvent = null;
+        //int number = UnityEngine.Random.Range(0, typeOfQTE.GetNames(typeof(typeOfQTE)).Length);
         //if (number == 0)
         //{
         //    currentEvent = new SpamButtonEvent(player, this, can);

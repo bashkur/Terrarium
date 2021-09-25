@@ -34,6 +34,7 @@ public class Player_pull_script : MonoBehaviour
     public float standstillTolerance = 0.5f;
     public AnimationCurve pullJitterAmount;
     public float jitterMult = 2.0f;
+    public bool UnderAttack = false;
 
     private HandMovement ericScript;
 
@@ -54,8 +55,17 @@ public class Player_pull_script : MonoBehaviour
         return angle - 90;
     }
 
+    public void Besieged(ZombieScript zombie, bool isUnderSiege)
+    {
+        //you are now being attacked by this zombie
+        UnderAttack = isUnderSiege;
+        ericScript.enabled = isUnderSiege;
+
+    }
+
     void SetPlant(Plant plant)
     {
+        SoilNeedsLoosened = true;
         currentPlant = plant;
         if (plant)
         {
@@ -70,6 +80,10 @@ public class Player_pull_script : MonoBehaviour
 
             startingAngle = calcAngle(plant.gameObject);
             //Debug.Log(startingAngle);
+
+            ericScript.enabled = false;
+            lastPos = gameObject.transform.position;
+            StartCoroutine(diggingHoleTimer());
         }
     }
 
@@ -79,33 +93,28 @@ public class Player_pull_script : MonoBehaviour
         //body = GetComponent<Rigidbody>();
         ericScript = gameObject.GetComponent<HandMovement>();
         ericScript.enabled = true;
-
-        SetPlant(currentPlant);
-        if (SoilNeedsLoosened)
-        {
-            ericScript.enabled = false;
-            lastPos = gameObject.transform.position;
-            StartCoroutine(diggingHoleTimer());
-        }
     }
 
     public IEnumerator diggingHoleTimer()
     {
         while (SoilNeedsLoosened)
         {
-            //Debug.Log("hello?");
-            Vector3 newPos = gameObject.transform.position;
-            Vector3 directional = (currentPlant.transform.position - gameObject.transform.position).normalized * distFromPlantToDraw;
-
-            float dist = (lastPos - newPos).magnitude;
-
-            if (dist >= travelDistanceDraw)
+            if (currentPlant)
             {
-                Debug.DrawLine(lastPos + directional, newPos + directional, Color.red, 5, false);
-                lastPos = newPos;
+                //Debug.Log("hello?");
+                Vector3 newPos = gameObject.transform.position;
+                Vector3 directional = (currentPlant.transform.position - gameObject.transform.position).normalized * distFromPlantToDraw;
+
+                float dist = (lastPos - newPos).magnitude;
+
+                if (dist >= travelDistanceDraw)
+                {
+                    Debug.DrawLine(lastPos + directional, newPos + directional, Color.red, 5, false);
+                    lastPos = newPos;
+                }
+                yield return new WaitForEndOfFrame();
+                //yield return new WaitForSeconds(timerInterval);
             }
-            yield return new WaitForEndOfFrame();
-            //yield return new WaitForSeconds(timerInterval);
         }
     }
 
@@ -136,115 +145,128 @@ public class Player_pull_script : MonoBehaviour
                 currentPlant.dontHold = false;
             }
 
-            if (Input.GetButtonUp("Fire2"))
+            if (!UnderAttack)
             {
-                //resets position if hand gets too far away
-                Vector3 dir = (gameObject.transform.position - currentPlant.transform.position).normalized;
-                gameObject.transform.position = currentPlant.transform.position + dir * distanceFromPlant;
-            }
-
-            //getButton does press + held, getButtonDown only goes off once when it was firt pressed
-            if (Input.GetButton("Counterclockwise"))
-            {
-                //Debug.Log("ccw");
-                gameObject.transform.RotateAround(currentPlant.transform.position, Vector3.up, -rotationSpeed * Time.deltaTime);
-                currentAngle -= rotationSpeed * Time.deltaTime;
-                if (currentAngle < leftMost)
-                    leftMost = currentAngle;
-            }
-
-
-            if (Input.GetButton("Clockwise"))
-            {
-                //Debug.Log("cw");
-                gameObject.transform.RotateAround(currentPlant.transform.position, Vector3.up, rotationSpeed * Time.deltaTime);
-                currentAngle += rotationSpeed * Time.deltaTime;
-                if (currentAngle > rightMost)
-                    rightMost = currentAngle;
-            }
-
-            if (ericScript.enabled == true)
-            {
-                currentAngle = calcAngle(currentPlant.gameObject);
-                //Debug.Log(currentAngle);
-
-                currentPlant.UpdatePlayerLoation((currentAngle));
-            }
-            else
-            {
-                currentPlant.UpdatePlayerLoation((startingAngle + currentAngle));
-            }
-
-            if (SoilNeedsLoosened)
-            {
-                if (Mathf.Abs(leftMost) + Mathf.Abs(rightMost) >= 360)
+                if (Input.GetButtonUp("Fire2"))
                 {
-                    //Debug.Log("all the way around");
-                    //Debug.Log(leftMost);
-                    //Debug.Log(rightMost);
-
-                    SoilNeedsLoosened = false;
-
-                    StopCoroutine(diggingHoleTimer());
-
-                    currentPlant.turnOnParticleEffectRing();
-                    pullingOut = true;
-
-                    ericScript.enabled = true;
-                }
-            }
-
-            if (pullingOut && !currentPlant.dontHold)
-            {
-                float distanceAway = 0;
-                Vector3 projectOnto = currentPlant.projectOnto.normalized;
-                //Vector3 mouse = Input.mousePosition - mouseStartPos;
-                Vector3 mouse = gameObject.transform.position - currentPlant.transform.position;
-
-                if (hold)
-                {
-                    //distanceAway = Vector3.Project(mouse, projectOnto).magnitude;
-                    distanceAway = mouse.magnitude;
+                    //resets position if hand gets too far away
+                    Vector3 dir = (gameObject.transform.position - currentPlant.transform.position).normalized;
+                    gameObject.transform.position = currentPlant.transform.position + dir * distanceFromPlant;
                 }
 
-                if (hold && Mathf.Abs(oldDistance - distanceAway) <= standstillTolerance)
+                //getButton does press + held, getButtonDown only goes off once when it was firt pressed
+                if (Input.GetButton("Counterclockwise"))
                 {
-                    timeInPlace += Time.deltaTime;
+                    //Debug.Log("ccw");
+                    gameObject.transform.RotateAround(currentPlant.transform.position, Vector3.up, -rotationSpeed * Time.deltaTime);
+                    currentAngle -= rotationSpeed * Time.deltaTime;
+                    if (currentAngle < leftMost)
+                        leftMost = currentAngle;
+                }
 
-                    timeInPlace %= pullJitterAmount[pullJitterAmount.length - 1].time;
 
-                    float offput = jitterMult * pullJitterAmount.Evaluate(timeInPlace) / pullJitterAmount[pullJitterAmount.length - 1].value;
-                    
-                    Vector3 tangent;
-                    Vector3 t1 = Vector3.Cross(projectOnto, currentPlant.transform.forward);
-                    Vector3 t2 = Vector3.Cross(projectOnto, currentPlant.transform.up);
-                    if (t1.magnitude > t2.magnitude)
-                    {
-                        tangent = t1;
-                    }
-                    else
-                    {
-                        tangent = t2;
-                    }
-                    //body.AddForce(tangent * offput);
+                if (Input.GetButton("Clockwise"))
+                {
+                    //Debug.Log("cw");
+                    gameObject.transform.RotateAround(currentPlant.transform.position, Vector3.up, rotationSpeed * Time.deltaTime);
+                    currentAngle += rotationSpeed * Time.deltaTime;
+                    if (currentAngle > rightMost)
+                        rightMost = currentAngle;
+                }
 
-                    gameObject.transform.position += tangent * offput * Time.deltaTime;
-
+                if (ericScript.enabled == true)
+                {
+                    currentAngle = calcAngle(currentPlant.gameObject);
+                    //Debug.Log(currentAngle);
+                    currentPlant.UpdatePlayerLoation((currentAngle));
                 }
                 else
                 {
-                    //timeInPlace = 0.0f;
-                    timeInPlace -= Time.deltaTime;
-                    timeInPlace = Mathf.Max(timeInPlace, 0.0f);
+                    currentPlant.UpdatePlayerLoation((startingAngle + currentAngle));
                 }
 
-                
-                //Debug.Log(distanceAway);
+                if ((currentPlant.gameObject.transform.position - gameObject.transform.position).magnitude >= 1.0f)
+                {
+                    Vector3 look = currentPlant.gameObject.transform.position;
+                    look.y = gameObject.transform.position.y;
+                    gameObject.transform.LookAt(look);
+                }
 
-                //Debug.Log("player pull!");
-                //send command to plant!
-                currentPlant.isPulling(hold, distanceAway);
-                oldDistance = distanceAway;
+                if (SoilNeedsLoosened)
+                {
+                    if (Mathf.Abs(leftMost) + Mathf.Abs(rightMost) >= 360)
+                    {
+                        //Debug.Log("all the way around");
+                        //Debug.Log(leftMost);
+                        //Debug.Log(rightMost);
+
+                        SoilNeedsLoosened = false;
+
+                        StopCoroutine(diggingHoleTimer());
+
+                        currentPlant.turnOnParticleEffectRing();
+                        pullingOut = true;
+
+                        ericScript.enabled = true;
+                    }
+                }
+
+                if (pullingOut && !currentPlant.dontHold)
+                {
+                    float distanceAway = 0;
+                    Vector3 projectOnto = currentPlant.projectOnto.normalized;
+                    //Vector3 mouse = Input.mousePosition - mouseStartPos;
+                    Vector3 mouse = gameObject.transform.position - currentPlant.transform.position;
+
+                    if (hold)
+                    {
+                        //distanceAway = Vector3.Project(mouse, projectOnto).magnitude;
+                        distanceAway = mouse.magnitude;
+                    }
+
+                    if (hold && Mathf.Abs(oldDistance - distanceAway) <= standstillTolerance)
+                    {
+                        timeInPlace += Time.deltaTime;
+
+                        timeInPlace %= pullJitterAmount[pullJitterAmount.length - 1].time;
+
+                        float offput = jitterMult * pullJitterAmount.Evaluate(timeInPlace) / pullJitterAmount[pullJitterAmount.length - 1].value;
+
+                        Vector3 tangent;
+                        Vector3 t1 = Vector3.Cross(projectOnto, currentPlant.transform.forward);
+                        Vector3 t2 = Vector3.Cross(projectOnto, currentPlant.transform.up);
+                        if (t1.magnitude > t2.magnitude)
+                        {
+                            tangent = t1;
+                        }
+                        else
+                        {
+                            tangent = t2;
+                        }
+                        //body.AddForce(tangent * offput);
+
+                        gameObject.transform.position += tangent * offput * Time.deltaTime;
+
+                    }
+                    else
+                    {
+                        //timeInPlace = 0.0f;
+                        timeInPlace -= Time.deltaTime;
+                        timeInPlace = Mathf.Max(timeInPlace, 0.0f);
+                    }
+
+
+                    //Debug.Log(distanceAway);
+
+                    //Debug.Log("player pull!");
+                    //send command to plant!
+                    currentPlant.isPulling(hold, distanceAway);
+                    oldDistance = distanceAway;
+                }
+            }
+            else
+            {
+                //do stuff while player is under attack
             }
         }
     }

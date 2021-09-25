@@ -37,7 +37,7 @@ public class RoundedEdge : MonoBehaviour
                 fillOriginName = ((Image.Origin360)fillBar.fillOrigin).ToString();
                 break;
         }
-        Debug.Log(string.Format("{0} is using {1} fill method with the origin on {2}", name, fillBar.fillMethod, fillOriginName));
+        //Debug.Log(string.Format("{0} is using {1} fill method with the origin on {2}", name, fillBar.fillMethod, fillOriginName));
 
         length = fillBar.gameObject.GetComponent<RectTransform>().rect.width;
 

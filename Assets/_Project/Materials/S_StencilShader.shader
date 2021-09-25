@@ -29,14 +29,15 @@ Shader "Custom/S_StencilShader"
         */
 
         //ZTest GEqual (portal stuff)
-        ZTest Always
+        ZTest Always //always draw regardless of depth test
 
         Stencil
         {
             Ref [_StencilMask]
-            Comp Greater
+            Comp GEqual
             Pass Replace
-            //zFailOperation Replace
+            ZFail Zero
+            //ZFailFront Replace
         }
 
         CGPROGRAM
