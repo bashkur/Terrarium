@@ -55,8 +55,8 @@ public class PreciseClickEvent : QuickTimeEvents
 public class SpamButtonEvent: QuickTimeEvents
 {
     public KeyCode keyCode;
-    public TextMeshPro keyTextMesh;
-    public GameObject parent;
+    public TextMeshProUGUI keyTextMesh;
+    //public GameObject parent;
 
     public GameObject quickTimeBar;
     //public Image BackgroundBar;
@@ -78,6 +78,10 @@ public class SpamButtonEvent: QuickTimeEvents
     private float maxCurveVal;
 
     private float maxHeight;
+    private GameObject unPressed, pressed;
+    private float delay = 0.005f;
+    private bool start = false;
+    private bool swap = false;
 
     public SpamButtonEvent(GameObject _player, ZombieScript _target, Canvas _can) : base (_player, _target, _can)
     {
@@ -86,44 +90,17 @@ public class SpamButtonEvent: QuickTimeEvents
 
         quickTimeBar = target.quickTimeBar;
 
-        parent = new GameObject("QTE");
-        parent.transform.parent = quickTimeBar.transform;
-
-        parent.transform.localEulerAngles = Vector3.zero;
-        //parent.transform.localPosition = Vector3.zero;
-        parent.transform.localPosition = new Vector3(0, 227, 0);
-        parent.transform.localScale = new Vector3(1, 1, 1);
-
-        keyTextMesh = parent.GetComponent<TextMeshPro>();
-        if (keyTextMesh == null)
-        {
-            keyTextMesh = parent.AddComponent<TextMeshPro>();
-        }
-        else
-        {
-            keyTextMesh.enabled = true;
-        }
-        keyTextMesh.text = "" + keyCode.ToString();
-
-        keyTextMesh.autoSizeTextContainer = true;
-        keyTextMesh.fontSize = 748;
-        keyTextMesh.alignment = TextAlignmentOptions.Center;
-        keyTextMesh.color = new Color32(255, 0, 0, 255);
-
-        keyTextMesh.outlineColor = new Color32(255, 255, 255, 255);
-        keyTextMesh.outlineWidth = 0.2f;
-        
         //GameObject instantiatedGameObj = GameObject.Instantiate(quickTimeBar, new Vector3(0, 0, 0), Quaternion.identity);
         quickTimeBar.SetActive(true);
 
         zombieForce = target.zombieForce;
 
-        //RectTransform rekt = instantiatedGameObj.GetComponent<RectTransform>();
-        //rekt.localScale = new Vector3(1, 1, 1);
-        //rekt.eulerAngles = Vector3.zero;
-        //rekt.position = new Vector3(instantiatedGameObj.transform.position.x, 0, 0);
+        pressed = quickTimeBar.transform.GetChild(1).transform.GetChild(0).gameObject;
+        pressed.SetActive(false);
+        unPressed = quickTimeBar.transform.GetChild(1).transform.GetChild(1).gameObject;
+        keyTextMesh = quickTimeBar.transform.GetChild(1).transform.GetChild(2).gameObject.GetComponent<TextMeshProUGUI>();
 
-        //quickTimeBar.transform.parent = can.transform;
+        keyTextMesh.text = "" + keyCode.ToString();
 
         maxHeight = quickTimeBar.transform.GetComponent<RectTransform>().rect.height;
 
@@ -159,6 +136,7 @@ public class SpamButtonEvent: QuickTimeEvents
         {
             timeElapse = time;
             down = true;
+            start = true;
         }
         
         if (Input.GetKeyUp(keyCode))
@@ -168,6 +146,16 @@ public class SpamButtonEvent: QuickTimeEvents
             HumanSide.fillAmount += 0.01f * ((rate < 0.8f) ? 1.5f : 1) * ((rate < 0.25f) ? 2 : 1);
             down = false;
         }
+
+        if(start && delay <= 0)
+        {
+            pressed.SetActive(!swap);
+            unPressed.SetActive(swap);
+            delay = 0.25f;
+            swap = !swap;
+        }
+
+        delay -= Time.deltaTime;
 
         if (HumanSide.fillAmount >= fillThreshold)
         {
