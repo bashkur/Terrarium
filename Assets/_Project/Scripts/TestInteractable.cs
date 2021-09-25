@@ -11,9 +11,8 @@ public class TestInteractable : MonoBehaviour,IInteractable
     }
     void IInteractable.Interact()
     {
-        print("YAY");
-
-        transform.GetComponent<MeshRenderer>().enabled = false;
+        //print("YAY");
+        //transform.GetComponent<MeshRenderer>().enabled = false;
     }
     // Update is called once per frame
     void Update()

@@ -59,12 +59,16 @@ public class Player_pull_script : MonoBehaviour
     {
         //you are now being attacked by this zombie
         UnderAttack = isUnderSiege;
-        ericScript.enabled = isUnderSiege;
+        ericScript.enabled = !isUnderSiege;
 
     }
 
-    void SetPlant(Plant plant)
+    public void SetPlant(Plant plant)
     {
+
+        Debug.Log(plant);
+        plant.turnOnParticleEffectRing();
+
         SoilNeedsLoosened = true;
         currentPlant = plant;
         if (plant)
@@ -111,6 +115,8 @@ public class Player_pull_script : MonoBehaviour
                 {
                     Debug.DrawLine(lastPos + directional, newPos + directional, Color.red, 5, false);
                     lastPos = newPos;
+
+                    ericScript.DigHere(newPos);
                 }
                 yield return new WaitForEndOfFrame();
                 //yield return new WaitForSeconds(timerInterval);

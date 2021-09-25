@@ -118,7 +118,8 @@ public class SpamButtonEvent: QuickTimeEvents
 
         maxCurveVal = zombieForce[zombieForce.length - 1].value;
 
-        Debug.Log("yo");
+        keyTextMesh.enabled = true;
+        //Debug.Log("yo");
 
         Start();
     }
@@ -165,7 +166,7 @@ public class SpamButtonEvent: QuickTimeEvents
             GameManager.Instance.UpdateScore(10);
             target.onComplete(true);
             quickTimeBar.SetActive(false);
-            keyTextMesh.enabled = false;
+            //keyTextMesh.enabled = false;
             return;
         }
         else if (HumanSide.fillAmount < 1 - fillThreshold)
@@ -173,7 +174,7 @@ public class SpamButtonEvent: QuickTimeEvents
             Debug.Log("zombie won");
             target.onComplete(false);
             quickTimeBar.SetActive(false);
-            keyTextMesh.enabled = false;
+            //keyTextMesh.enabled = false;
             return;
         }
         
@@ -189,5 +190,10 @@ public class SpamButtonEvent: QuickTimeEvents
         MiddleBar.gameObject.transform.localPosition = new Vector3(0, maxHeight * HumanSide.fillAmount, 0);
 
         time += Time.deltaTime;
+    }
+
+    void OnDestroy()
+    {
+        quickTimeBar.SetActive(false);
     }
 }

@@ -20,7 +20,6 @@ public class ZombieScript : MonoBehaviour
     void OnDestroy()
     {
         //deconstructor
-        //gameObject.transform.parent.gameObject.childDied();
     }
 
     void Start()
@@ -31,7 +30,7 @@ public class ZombieScript : MonoBehaviour
 
         results = GameObject.FindGameObjectsWithTag("Canvas");
         can = results[0].GetComponent<Canvas>();
-
+        quickTimeBar = can.transform.GetChild(0).gameObject;
     }
 
     void spottedPlayer()
@@ -47,12 +46,12 @@ public class ZombieScript : MonoBehaviour
             Vector3 dir = (gameObject.transform.position - player.transform.position);
             dir.y = 0;
 
-            Debug.Log(dir.magnitude);
+            //Debug.Log(dir.magnitude);
 
             if (dir.magnitude <= senseDistance)
             {
                 
-                Debug.Log("seen!");
+                //Debug.Log("seen!");
                 //Debug.Log(puller);
                 if(!puller.UnderAttack)
                 {
@@ -83,6 +82,7 @@ public class ZombieScript : MonoBehaviour
         }
         else
         {
+            gameObject.transform.parent.gameObject.GetComponent<SpawnerScript>().childDied(gameObject);
             puller.Besieged(this, false);
         }
     }
