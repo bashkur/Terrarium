@@ -278,6 +278,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tileAmount: {x: 1, y: 1}
+  mat: {fileID: 0}
+  pSys: {fileID: 0}
 --- !u!4 &196464748
 Transform:
   m_ObjectHideFlags: 0
@@ -418,6 +420,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 15
+  rotationSpeed: 0
+  maxZoom: 0
+  defaultZoom: 0
 --- !u!135 &1263427535
 SphereCollider:
   m_ObjectHideFlags: 0
