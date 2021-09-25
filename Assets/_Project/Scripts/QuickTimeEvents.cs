@@ -172,6 +172,7 @@ public class SpamButtonEvent: QuickTimeEvents
         if (HumanSide.fillAmount >= fillThreshold)
         {
             Debug.Log("player won");
+            GameManager.Instance.UpdateScore(10);
             target.onComplete(true);
             quickTimeBar.SetActive(false);
             keyTextMesh.enabled = false;
