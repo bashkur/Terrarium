@@ -2156,34 +2156,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Plant
       objectReference: {fileID: 0}
-    - target: {fileID: 3321145228292132771, guid: 1ff9e6d6d49d69446a380448e7562d22, type: 3}
-      propertyPath: m_Size.x
-      value: 4.655311
-      objectReference: {fileID: 0}
-    - target: {fileID: 3321145228292132771, guid: 1ff9e6d6d49d69446a380448e7562d22, type: 3}
-      propertyPath: m_Size.y
-      value: 4.1414285
-      objectReference: {fileID: 0}
-    - target: {fileID: 3321145228292132771, guid: 1ff9e6d6d49d69446a380448e7562d22, type: 3}
-      propertyPath: m_Size.z
-      value: 4.425653
-      objectReference: {fileID: 0}
-    - target: {fileID: 3321145228292132771, guid: 1ff9e6d6d49d69446a380448e7562d22, type: 3}
-      propertyPath: m_Center.x
-      value: 0.16098192
-      objectReference: {fileID: 0}
-    - target: {fileID: 3321145228292132771, guid: 1ff9e6d6d49d69446a380448e7562d22, type: 3}
-      propertyPath: m_Center.y
-      value: 1.5707124
-      objectReference: {fileID: 0}
-    - target: {fileID: 3321145228292132771, guid: 1ff9e6d6d49d69446a380448e7562d22, type: 3}
-      propertyPath: m_Center.z
-      value: 0.06430857
-      objectReference: {fileID: 0}
-    - target: {fileID: 3321145228292132772, guid: 1ff9e6d6d49d69446a380448e7562d22, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: ac62f2a487992fb499e50922c4e971ee, type: 2}
     - target: {fileID: 3321145228292132774, guid: 1ff9e6d6d49d69446a380448e7562d22, type: 3}
       propertyPath: m_RootOrder
       value: 1
