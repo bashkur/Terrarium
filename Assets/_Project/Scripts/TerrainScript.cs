@@ -54,7 +54,7 @@ public class TerrainScript : MonoBehaviour
             yield return new WaitForEndOfFrame();
         }
         //_pSys?.Stop();
-        Destroy(_pSys, 3);
+        Destroy(_pSys);
     }
     public IEnumerator BulgeMe(int x, int y)
     {

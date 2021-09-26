@@ -16,7 +16,7 @@ public class MaterialEditor : MonoBehaviour
     private Vector3 initalScale;
     private Vector3 oldScale;
     // Start is called before the first frame update
-    void OnEnable()
+    void OnStart()
     {
         if (material == null)
         {
@@ -31,7 +31,7 @@ public class MaterialEditor : MonoBehaviour
         }
 
         //initalOffset = material.GetVector("_Offset");
-        oldPos = transform.position;
+        oldPos = TopMostParent.transform.position + transform.position;
         initalPosition = oldPos;
 
         //lossyScale
@@ -55,7 +55,7 @@ public class MaterialEditor : MonoBehaviour
 
         material.SetVector("_Scale", new Vector4(oldScale.x / initalScale.x, oldScale.y / initalScale.y, oldScale.z / initalScale.z, 1));
 
-        oldPos = transform.position;
+        oldPos = TopMostParent.transform.position + transform.position;
     }
 
     public Vector3 getScale()
@@ -103,7 +103,7 @@ public class MaterialEditor : MonoBehaviour
     {
         //Debug.Log(transform.lossyScale);
         Vector3 scale = getScale();
-        if (oldPos != transform.position || oldScale != scale)
+        if (oldPos != TopMostParent.transform.position + transform.position || oldScale != scale)
         {
             updateMaterial();
 

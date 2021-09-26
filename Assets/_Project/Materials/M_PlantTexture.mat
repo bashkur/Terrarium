@@ -37,12 +37,12 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - _MaxHeight: 1
-    - _MinHeight: 0.9
-    - _StencilMask: 8
+    - _MinHeight: 0.8
+    - _StencilMask: 1
     m_Colors:
     - _BlackColor: {r: 0.263839, g: 1, b: 0, a: 1}
     - _BottomColor: {r: 0.63624823, g: 0.27069238, b: 0.745283, a: 1}
-    - _Offset: {r: 0, g: 0.2, b: -2.2238917, a: 0}
+    - _Offset: {r: 0, g: -0.6709984, b: -2.2238917, a: 0}
     - _Scale: {r: 1, g: 1, b: 1, a: 1}
     - _TopColor: {r: 1, g: 0.15842648, b: 0.14509803, a: 1}
     - _WhiteColor: {r: 1, g: 0.5539919, b: 0, a: 1}

@@ -36,8 +36,23 @@ public class Player_pull_script : MonoBehaviour
     public float jitterMult = 2.0f;
     public bool UnderAttack = false;
 
+    public GameObject plantGameMainCam;
+    public GameObject plantGameArms;
+
     private HandMovement ericScript;
     private PlayerMovement bashScript;
+  
+    public GameObject BashPlayer;
+
+    public Material carrotMat;
+    public Material plantMat;
+
+    public void EnableVisible(Material m)
+    {
+        carrotMat.SetFloat("_StencilMask", 1);
+        plantMat.SetFloat("_StencilMask", 1);
+        m.SetFloat("_StencilMask", 200);
+    }
 
     float calcAngle(GameObject objectOrbitting)
     {
@@ -66,30 +81,49 @@ public class Player_pull_script : MonoBehaviour
 
     public void SetPlant(Plant plant)
     {
-
-        Debug.Log(plant);
-        plant.turnOnParticleEffectRing();
-
-        SoilNeedsLoosened = true;
+        //Debug.Log(plant);SetPlant
         currentPlant = plant;
         if (plant)
         {
+            //plant.turnOnParticleEffectRing();
+            plant.debugArrow.SetActive(true);
             distanceFromPlant = (gameObject.transform.position - currentPlant.transform.position).magnitude;
+            bashScript.enabled = false;
+            ericScript.canMoveArms = true;
+
+            BashPlayer.SetActive(false);
+            plantGameMainCam.SetActive(true);
+            plantGameArms.SetActive(true);
+
+            Vector3 dir = (gameObject.transform.position - currentPlant.transform.position).normalized;
+            gameObject.transform.position = currentPlant.transform.position + dir * distanceFromPlant;
+            
+            StartLoosenSoil();
 
         }
-        if (SoilNeedsLoosened)
+        else
         {
-            startPosition = transform.position;
-            currentPlant.playerStartPosition = startPosition;
-            currentAngle = 0;
+            ericScript.canMoveArms = false;
+            bashScript.enabled = true;
 
-            startingAngle = calcAngle(plant.gameObject);
-            //Debug.Log(startingAngle);
-
-            ericScript.enabled = false;
-            lastPos = gameObject.transform.position;
-            StartCoroutine(diggingHoleTimer());
+            BashPlayer.SetActive(true);
+            plantGameMainCam.SetActive(false);
+            plantGameArms.SetActive(false);
         }
+        
+    }
+
+    void StartLoosenSoil()
+    {
+        startPosition = transform.position;
+        currentPlant.playerStartPosition = startPosition;
+        currentAngle = 0;
+
+        startingAngle = calcAngle(currentPlant.gameObject);
+
+        ericScript.canMoveArms = false;
+        lastPos = gameObject.transform.position;
+        StartCoroutine(diggingHoleTimer());
     }
 
     // Start is called before the first frame update
@@ -98,7 +132,11 @@ public class Player_pull_script : MonoBehaviour
         //body = GetComponent<Rigidbody>();
         ericScript = gameObject.GetComponent<HandMovement>();
         bashScript = gameObject.GetComponent<PlayerMovement>();
-        ericScript.enabled = true;
+        //ericScript.enabled = false;
+        //ericScript.canMoveArms = false;
+        //bashScript.enabled = true;
+        //BashPlayer.GetComponent<CharacterController>()
+        SetPlant(null);
     }
 
     public IEnumerator diggingHoleTimer()
@@ -182,7 +220,7 @@ public class Player_pull_script : MonoBehaviour
                         rightMost = currentAngle;
                 }
 
-                if (ericScript.enabled == true)
+                if (ericScript.canMoveArms == true)
                 {
                     currentAngle = calcAngle(currentPlant.gameObject);
                     //Debug.Log(currentAngle);
@@ -215,7 +253,7 @@ public class Player_pull_script : MonoBehaviour
                         currentPlant.turnOnParticleEffectRing();
                         pullingOut = true;
 
-                        ericScript.enabled = true;
+                        ericScript.canMoveArms = true;
                     }
                 }
 

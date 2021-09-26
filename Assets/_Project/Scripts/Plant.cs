@@ -15,6 +15,8 @@ public class Plant : MonoBehaviour
     public Vector3 projectOnto { get; set; }
     public float pullDistance;
 
+    public Animation anime;
+
     public Gradient IndicatorColors;
     //public GameObject stressMeterObj;
     

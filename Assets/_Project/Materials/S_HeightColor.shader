@@ -81,14 +81,15 @@ Shader "Unlit/S_HeightColor"
                 o.vertex = UnityObjectToClipPos(v.vertex);
                 o.uv = TRANSFORM_TEX(v.uv, _MainTexTop);
                 UNITY_TRANSFER_FOG(o,o.vertex);
-                o.worldPos = mul(unity_ObjectToWorld, v.vertex) + _Offset.y;
-                //o.worldPos = v.vertex;
+                //o.worldPos = mul(unity_ObjectToWorld, v.vertex) + _Offset.y;
+                o.worldPos = v.vertex;
                 return o;
             }
 
             fixed4 frag(v2f i) : SV_Target
             {
                 float h = (_MaxHeight - i.worldPos.y) / (_MaxHeight - _MinHeight);
+                //float h = (_MaxHeight - i.uv.y) / (_MaxHeight - _MinHeight);
                 fixed4 col;
                 fixed4 otherCol;
 

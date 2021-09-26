@@ -19,6 +19,7 @@ public class HandMovement : MonoBehaviour
     private Player_pull_script puller;
 
     public Vector3 cameraOffset = new Vector3(0, 4, 0);
+    public bool canMoveArms = true;
 
     public void DollyZoom(float amount, GameObject location)
     {
@@ -81,11 +82,14 @@ public class HandMovement : MonoBehaviour
         }
 
         //Debug.Log(allOnScreen());
-        mouseY = Input.GetAxis("Mouse Y"); // current movement input
-        mouseX = Input.GetAxis("Mouse X");
-        if (Mathf.Abs(mouseX) < 10 && Mathf.Abs(mouseY) < 10)
+        if (canMoveArms)
         {
-            transform.position += new Vector3(mouseX * Time.deltaTime * speed, 0, mouseY * Time.deltaTime * speed); //should be negative.. moves away from mouse input?
+            mouseY = Input.GetAxis("Mouse Y"); // current movement input
+            mouseX = Input.GetAxis("Mouse X");
+            if (Mathf.Abs(mouseX) < 10 && Mathf.Abs(mouseY) < 10)
+            {
+                transform.position += new Vector3(mouseX * Time.deltaTime * speed, 0, mouseY * Time.deltaTime * speed); //should be negative.. moves away from mouse input?
+            }
         }
     }
 
