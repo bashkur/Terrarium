@@ -315,5 +315,10 @@ public class Player_pull_script : MonoBehaviour
                 //do stuff while player is under attack
             }
         }
+
+        if(UnderAttack)
+        {
+
+        }
     }
 }

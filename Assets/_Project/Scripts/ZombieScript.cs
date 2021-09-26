@@ -41,7 +41,7 @@ public class ZombieScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (searchForHuman)
+        if (searchForHuman && !puller.BashPlayer.active)
         {
             Vector3 dir = (gameObject.transform.position - player.transform.position);
             dir.y = 0;

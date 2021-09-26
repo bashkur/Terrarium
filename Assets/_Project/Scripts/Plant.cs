@@ -15,7 +15,7 @@ public class Plant : MonoBehaviour
     public Vector3 projectOnto { get; set; }
     public float pullDistance;
 
-    public Animation anime;
+    public Animator anime;
 
     public Gradient IndicatorColors;
     //public GameObject stressMeterObj;
@@ -102,6 +102,9 @@ public class Plant : MonoBehaviour
 
         pulling = isPull;
 
+
+        anime.SetBool("Stretching", pulling);
+
         //takes distance into account not just holding click
         if (pulling)
         {
@@ -138,6 +141,8 @@ public class Plant : MonoBehaviour
 
         stressMeter.setMeAndTheBoisActive(false);
         turnOnParticleEffectRing(false);
+
+        anime = GetComponentsInChildren<Animator>()[0];
     }
 
     private void Update()

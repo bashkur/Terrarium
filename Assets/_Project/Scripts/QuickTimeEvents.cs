@@ -162,7 +162,7 @@ public class SpamButtonEvent: QuickTimeEvents
 
         if (HumanSide.fillAmount >= fillThreshold)
         {
-            Debug.Log("player won");
+            //Debug.Log("player won");
             GameManager.Instance.UpdateScore(10);
             target.onComplete(true);
             quickTimeBar.SetActive(false);
@@ -171,7 +171,7 @@ public class SpamButtonEvent: QuickTimeEvents
         }
         else if (HumanSide.fillAmount < 1 - fillThreshold)
         {
-            Debug.Log("zombie won");
+            //Debug.Log("zombie won");
             target.onComplete(false);
             quickTimeBar.SetActive(false);
             //keyTextMesh.enabled = false;
@@ -194,6 +194,10 @@ public class SpamButtonEvent: QuickTimeEvents
 
     void OnDestroy()
     {
+        //Debug.LogFormat("{0} has died", keyCode.ToString());
+
+        target.totalNumQTE = 0;
+        target.onComplete(false);
         quickTimeBar.SetActive(false);
     }
 }
