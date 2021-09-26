@@ -57,9 +57,15 @@ public class HandMovement : MonoBehaviour
         mainCamera.transform.rotation = Quaternion.LookRotation(newLook);
     }
 
-    void Start()
+    void OnEnable()
     {
         mainCamera = Camera.main;
+        mainCamera.depthTextureMode = DepthTextureMode.Depth;
+    }
+
+    void Start()
+    {
+        //mainCamera = Camera.main;
         Cursor.visible = false;
         puller = gameObject.GetComponent<Player_pull_script>();
     }
