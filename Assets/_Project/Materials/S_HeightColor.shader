@@ -14,6 +14,9 @@ Shader "Unlit/S_HeightColor"
         _MinHeight("min height", float) = 0
         _MaxHeight("max height", float) = 1
 
+        _Offset("offset vert", Vector) = (0,0,0,0)
+        _Scale("sale %", Vector) = (1,1,1,1)
+
         _StencilMask("Stencil Mask", Range(0, 255)) = 1
     }
     SubShader
@@ -68,6 +71,9 @@ Shader "Unlit/S_HeightColor"
 
             float _MinHeight;
             float _MaxHeight;
+            fixed4 _Scale;
+
+            fixed4 _Offset;
 
             v2f vert (appdata v)
             {
@@ -75,11 +81,12 @@ Shader "Unlit/S_HeightColor"
                 o.vertex = UnityObjectToClipPos(v.vertex);
                 o.uv = TRANSFORM_TEX(v.uv, _MainTexTop);
                 UNITY_TRANSFER_FOG(o,o.vertex);
-                o.worldPos = mul(unity_ObjectToWorld, v.vertex);
+                o.worldPos = mul(unity_ObjectToWorld, v.vertex) + _Offset.y;
+                //o.worldPos = v.vertex;
                 return o;
             }
 
-            fixed4 frag (v2f i) : SV_Target
+            fixed4 frag(v2f i) : SV_Target
             {
                 float h = (_MaxHeight - i.worldPos.y) / (_MaxHeight - _MinHeight);
                 fixed4 col;

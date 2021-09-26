@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: M_CarrotHeight
+  m_Name: M_PlantTexture
   m_Shader: {fileID: 4800000, guid: 67b41d60d2c90d642950bdba4be347f5, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
@@ -41,9 +41,9 @@ Material:
     - _StencilMask: 8
     m_Colors:
     - _BlackColor: {r: 0.263839, g: 1, b: 0, a: 1}
-    - _BottomColor: {r: 0.8396226, g: 0.5699487, b: 0.24951048, a: 1}
-    - _Offset: {r: 0, g: 0.613, b: 0, a: 1}
+    - _BottomColor: {r: 0.63624823, g: 0.27069238, b: 0.745283, a: 1}
+    - _Offset: {r: 0, g: 0.2, b: -2.2238917, a: 0}
     - _Scale: {r: 1, g: 1, b: 1, a: 1}
-    - _TopColor: {r: 0.1462264, g: 1, b: 0.22283004, a: 1}
+    - _TopColor: {r: 1, g: 0.15842648, b: 0.14509803, a: 1}
     - _WhiteColor: {r: 1, g: 0.5539919, b: 0, a: 1}
   m_BuildTextureStacks: []
