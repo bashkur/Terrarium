@@ -6,6 +6,9 @@ public class TerrainScript : MonoBehaviour
 {
     public Material mat;
     public ParticleSystem pSys;
+    public BoxCollider box;
+    private Vector3 size;
+    private Vector3 location;
     private TerrainData _terraindata;
 
     // Start is called before the first frame update
@@ -13,8 +16,18 @@ public class TerrainScript : MonoBehaviour
     {
         pSys.Stop();
         _terraindata = new TerrainData();
-       
-        _terraindata.SetDetailResolution(66, 66);
+
+        if(box == null)
+        {
+            box = GetComponent<BoxCollider>();
+        }
+
+        size = box.size;
+        //_terraindata.size = size;
+        transform.position = box.center - new Vector3(size.x, 0, size.z)/2;
+
+        _terraindata.SetDetailResolution(120,120);
+
         GameObject terrain = Terrain.CreateTerrainGameObject(_terraindata);
         Terrain T = terrain.transform.GetComponent<Terrain>();
         T.materialTemplate = mat;
@@ -31,6 +44,12 @@ public class TerrainScript : MonoBehaviour
         }
         _terraindata.SetHeightsDelayLOD(0,0, heightmaps);
 
+        
+    }
+
+    public Vector2 worldToRes(int x, int y)
+    {
+        return new Vector2(_terraindata.size.x / _terraindata.heightmapResolution, _terraindata.size.z / _terraindata.heightmapResolution);
     }
 
     // Update is called once per frame
@@ -47,7 +66,7 @@ public class TerrainScript : MonoBehaviour
         x += (int)Mathf.Abs(transform.position.x);
         y += (int)Mathf.Abs(transform.position.z);
         _pSys.Play();
-        
+
         for (float dist = 1f; dist  > 0.0f; dist -= (0.3f * Time.deltaTime))
         {
             _terraindata.SetHeightsDelayLOD(x, y, new float[,] { { dist } });
@@ -60,6 +79,7 @@ public class TerrainScript : MonoBehaviour
     {
         x += (int)Mathf.Abs(transform.position.x);
         y += (int)Mathf.Abs(transform.position.z);
+
         float startH = _terraindata.GetHeight(x, y);
         for (float dist = startH; dist < 1f; dist += (0.2f * Time.deltaTime))
         {

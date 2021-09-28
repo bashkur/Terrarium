@@ -24,7 +24,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTexBottom:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 081191a3a645e5b45a7bb56399dead14, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTexTop:
@@ -36,14 +36,14 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - _MaxHeight: 1.2
-    - _MinHeight: -3
-    - _StencilMask: 1
+    - _MaxHeight: 2.4
+    - _MinHeight: 1.25
+    - _StencilMask: 2
     m_Colors:
     - _BlackColor: {r: 0.263839, g: 1, b: 0, a: 1}
-    - _BottomColor: {r: 0.9386792, g: 1, b: 0.9650968, a: 1}
-    - _Offset: {r: 0, g: 0, b: 0, a: 1}
+    - _BottomColor: {r: 0.48584908, g: 1, b: 0.59797734, a: 1}
+    - _Offset: {r: 0, g: 2, b: 0, a: 1}
     - _Scale: {r: 1, g: 1, b: 1, a: 1}
-    - _TopColor: {r: 1, g: 0.14509803, b: 0.1981829, a: 1}
+    - _TopColor: {r: 0.7529412, g: 0.0980392, b: 0.16222994, a: 1}
     - _WhiteColor: {r: 1, g: 0.5539919, b: 0, a: 1}
   m_BuildTextureStacks: []

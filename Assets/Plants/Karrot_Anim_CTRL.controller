@@ -46,7 +46,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 1827226128182048838, guid: ae1e5f5cb5f488d43ae1358a2fe99b7f, type: 3}
+  m_Motion: {fileID: 0}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -61,12 +61,6 @@ AnimatorController:
   m_Name: Karrot_Anim_CTRL
   serializedVersion: 5
   m_AnimatorParameters:
-  - m_Name: StretchAmount
-    m_Type: 1
-    m_DefaultFloat: 0
-    m_DefaultInt: 0
-    m_DefaultBool: 0
-    m_Controller: {fileID: 0}
   - m_Name: Stretching
     m_Type: 4
     m_DefaultFloat: 0
@@ -146,9 +140,6 @@ AnimatorStateTransition:
   m_PrefabAsset: {fileID: 0}
   m_Name: 
   m_Conditions:
-  - m_ConditionMode: 3
-    m_ConditionEvent: StretchAmount
-    m_EventTreshold: 0
   - m_ConditionMode: 1
     m_ConditionEvent: Stretching
     m_EventTreshold: 0

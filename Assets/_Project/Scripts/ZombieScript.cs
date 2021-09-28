@@ -13,7 +13,7 @@ public class ZombieScript : MonoBehaviour
     public GameObject quickTimeBar;
     public AnimationCurve zombieForce;
 
-    bool searchForHuman = true;
+    public bool searchForHuman = true;
     public float senseDistance = 2.0f;
     private Player_pull_script puller;
 

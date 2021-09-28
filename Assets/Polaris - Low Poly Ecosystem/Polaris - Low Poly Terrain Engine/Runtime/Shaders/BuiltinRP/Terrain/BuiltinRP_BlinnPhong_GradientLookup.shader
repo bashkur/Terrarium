@@ -15,10 +15,23 @@ Shader "Polaris/BuiltinRP/Terrain/BlinnPhong_GradientLookup"
 		_MainTex("MainTex", 2D) = "white" {}
 		[HideInInspector] _texcoord( "", 2D ) = "white" {}
 		[HideInInspector] __dirty( "", Int ) = 1
+
+		_StencilMask("Stencil Mask", Range(0, 255)) = 1
 	}
 
 	SubShader
 	{
+		ZTest Always //always draw regardless of depth test
+
+		Stencil
+		{
+			Ref[_StencilMask]
+			Comp GEqual
+			Pass Replace
+			ZFail Zero
+			//ZFailFront Replace
+		}
+
 		Tags{ "RenderType" = "Opaque"  "Queue" = "Geometry+0" "DisableBatching" = "True" }
 		Cull Back
 		CGINCLUDE

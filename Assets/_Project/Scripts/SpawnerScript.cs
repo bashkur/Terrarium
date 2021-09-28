@@ -84,6 +84,10 @@ public class SpawnerScript : MonoBehaviour
         {
             if (Random.Range(0, active / 3) == 0)
             {
+                if(child.GetComponent<ZombieScript>()?.searchForHuman == false)
+                {
+                    continue;
+                }
                 childDied(child.gameObject);
                 Destroy(child.gameObject);
                 

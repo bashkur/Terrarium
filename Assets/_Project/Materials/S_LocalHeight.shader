@@ -7,14 +7,16 @@ Shader "Unlit/S_HeightColor"
         _MainTexTop ("top texture", 2D) = "white" {}
         _MainTexBottom("bottom texture", 2D) = "white" {}
         
-        //_Mask("Mask", 2D) = "white" {}
         _BottomColor("bottom color", Color) = (1,1,1,1)
         _TopColor("top color", Color) = (1,1,1,1)
 
         _MinHeight("min height", float) = 0
         _MaxHeight("max height", float) = 1
 
-        _Offset("offset vert", Vector) = (0,0,0,0)
+        _CutOff("CutOff point", float) = -20
+
+        _Offset("offset vert", Vector) = (0,0,0)
+        _MeshWorldPos("current world pos of mesh", Vector) = (0,0,0)
 
         _StencilMask("Stencil Mask", Range(0, 255)) = 1
     }
@@ -55,7 +57,7 @@ Shader "Unlit/S_HeightColor"
                 float2 uv : TEXCOORD0;
                 UNITY_FOG_COORDS(1)
                 float4 vertex : SV_POSITION;
-                float4 worldPos : TEXCOORD1;
+                float3 worldPos : TEXCOORD1;
             };
 
             sampler2D _MainTexTop;
@@ -70,8 +72,9 @@ Shader "Unlit/S_HeightColor"
 
             float _MinHeight;
             float _MaxHeight;
-
-            fixed4 _Offset;
+            float3 _MeshWorldPos;
+            float3 _Offset;
+            float _CutOff;
 
             v2f vert (appdata v)
             {
@@ -79,8 +82,8 @@ Shader "Unlit/S_HeightColor"
                 o.vertex = UnityObjectToClipPos(v.vertex);
                 o.uv = TRANSFORM_TEX(v.uv, _MainTexTop);
                 UNITY_TRANSFER_FOG(o,o.vertex);
-                //o.worldPos = mul(unity_ObjectToWorld, v.vertex) + _Offset.y;
-                o.worldPos = v.vertex  + _Offset;
+                o.worldPos = mul(unity_ObjectToWorld, v.vertex) - _MeshWorldPos + _Offset;
+                //o.worldPos = v.vertex;
                 return o;
             }
 
@@ -88,8 +91,15 @@ Shader "Unlit/S_HeightColor"
             {
                 float h = (_MaxHeight - i.worldPos.y) / (_MaxHeight - _MinHeight);
                 //float h = (_MaxHeight - i.uv.y) / (_MaxHeight - _MinHeight);
+                
+                //float isCutOffAcceptable = (_CutOff >= _MinHeight) * (_CutOff <= _MaxHeight);
+                //h = h * (h <= _CutOff) * isCutOffAcceptable + (h > _CutOff) * _MaxHeight * isCutOffAcceptable + !isCutOffAcceptable * h;
+                //h = h * (h <= _CutOff) + (h > _CutOff) * _MaxHeight;
+                //h stays h if <= cutoff or becomes _maxHeight if not
+
                 fixed4 col;
                 fixed4 otherCol;
+                fixed4 res;
 
                 col = tex2D(_MainTexTop, i.uv);
                 otherCol = tex2D(_MainTexBottom, i.uv);
@@ -101,6 +111,8 @@ Shader "Unlit/S_HeightColor"
                 h *= mask;
 
                 fixed4 tintColor = lerp(_TopColor.rgba, _BottomColor.rgba, h);
+
+                //tintColor = tintColor * (h <= _CutOff) + (h > _CutOff) * _TopColor;//_BottomColor;
 
                 col *= tintColor;
 

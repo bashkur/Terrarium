@@ -6,17 +6,21 @@ using UnityEngine;
 public class MaterialEditor : MonoBehaviour
 {
     public SkinnedMeshRenderer renderer;
-    public Vector4 initalOffset = new Vector4(0, 0.613f, 0, 0);
-    public GameObject TopMostParent;
+    public Vector3 offsetAmount;
+    public bool customMin = false, customMax = false;
+    public float minHeight, maxHeight;
 
     private Material material;
     private Vector3 initalPosition;
     private Vector3 oldPos;
 
-    private Vector3 initalScale;
-    private Vector3 oldScale;
+    void OnEnable()
+    {
+        Start();
+    }
+
     // Start is called before the first frame update
-    void OnStart()
+    void Start()
     {
         if (material == null)
         {
@@ -31,83 +35,47 @@ public class MaterialEditor : MonoBehaviour
         }
 
         //initalOffset = material.GetVector("_Offset");
-        oldPos = TopMostParent.transform.position + transform.position;
+        oldPos = renderer.bounds.center;
         initalPosition = oldPos;
 
-        //lossyScale
-        oldScale = getScale();
-        initalScale = oldScale;
-        
-        //material.SetVector("_Offset", (initalOffset - new Vector4(temp.x, temp.y, temp.z - initalPosition.z, 0)) * (oldScale/initalScale));
         updateMaterial();
     }
 
     void updateMaterial()
     {
-        Vector3 temp = transform.position - initalPosition;
-        Vector4 translationChange = (initalOffset - new Vector4(temp.x, temp.y, temp.z - initalPosition.z, 0));
+        material.SetVector("_Offset", offsetAmount);
 
-        oldScale = getScale();
-
-        //Debug.LogFormat("{0}, {1}, {2}", oldScale.x / initalScale.x, oldScale.y / initalScale.y, oldScale.z / initalScale.z);
-
-        material.SetVector("_Offset", translationChange);
-
-        material.SetVector("_Scale", new Vector4(oldScale.x / initalScale.x, oldScale.y / initalScale.y, oldScale.z / initalScale.z, 1));
-
-        oldPos = TopMostParent.transform.position + transform.position;
-    }
-
-    public Vector3 getScale()
-    {
-        /*
-        Vector3 scale = transform.localScale;
-        GameObject current = transform.parent.gameObject;
-
-        while(current != TopMostParent)
+        //material.SetFloat("_MinHeight", renderer.bounds.center.y - renderer.bounds.size.y/2);
+        //material.SetFloat("_MaxHeight", renderer.bounds.center.y + renderer.bounds.size.y/2);
+        if (customMin)
         {
-
-            scale.x *= current.transform.localScale.x;
-            scale.y *= current.transform.localScale.y;
-            scale.z *= current.transform.localScale.z;
-
-            current = transform.parent.gameObject;
+            material.SetFloat("_MinHeight", minHeight);
+        }
+        else
+        {
+            material.SetFloat("_MinHeight", -renderer.bounds.size.y / 2);
         }
 
-        Debug.Log(scale);
-        return scale;
-        */
+        if(customMax)
+        {
+            material.SetFloat("_MaxHeight", maxHeight);
+        }
+        else
+        {
+            material.SetFloat("_MaxHeight", renderer.bounds.size.y / 2);
+        }
 
-        /*
-        Vector3 scale = new Vector3(0,0,0);
-        scale.x = TopMostParent.transform.localScale.x * transform.localScale.x;
+        material.SetVector("_MeshWorldPos", renderer.bounds.center);
 
-        scale.x = TopMostParent.transform.localScale.y * transform.localScale.y;
-
-        scale.x = TopMostParent.transform.localScale.z * transform.localScale.z;
-        */
-
-        //.bounds.size
-        Vector3 size = new Vector3(1, 1, 1);
-        size = multVector(transform.localScale, multVector(renderer.bounds.size, TopMostParent.transform.localScale));
-        return size;
-    }
-
-    Vector3 multVector(Vector3 vec1, Vector3 vec2)
-    {
-        return new Vector3(vec1.x * vec2.x, vec1.y * vec2.y, vec1.z * vec2.z);
+        oldPos = transform.position;
     }
 
     // Update is called once per frame
     void Update()
     {
-        //Debug.Log(transform.lossyScale);
-        Vector3 scale = getScale();
-        if (oldPos != TopMostParent.transform.position + transform.position || oldScale != scale)
+        if (oldPos != renderer.bounds.center)
         {
             updateMaterial();
-
-            //material.SetVector("_Offset", initalOffset - new Vector4(temp.x, temp.y, temp.z, 0));
         }
     }
 }

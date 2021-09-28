@@ -93,9 +93,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a28866e3db657d419906e57e815b05a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tileAmount: {x: 1, y: 1}
   mat: {fileID: 2100000, guid: 05492ee93df15a84b8e1ba7c1ba1ef3e, type: 2}
   pSys: {fileID: 1392567626867699488}
+  box: {fileID: 0}
 --- !u!1 &1392567626867699489
 GameObject:
   m_ObjectHideFlags: 0
